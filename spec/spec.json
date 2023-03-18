@@ -1,0 +1,1622 @@
+[{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "Optional String",
+      "description" : "The SEO title of the page"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "description",
+      "type" : "Optional String",
+      "description" : "The SEO description of the page"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "image",
+      "type" : "Optional String",
+      "description" : "The SEO image of the page"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "additional_head",
+      "type" : "Optional String",
+      "description" : "Additional HTML to be added to the head of the page"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "The components to be rendered on the page"
+    }
+  ],
+  "elementType" : "page",
+  "attachableTo" : [
+
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "title",
+          "argumentValue" : "My Page"
+        }
+      ]
+    }
+  ],
+  "description" : "A page is the top level component of a website. It contains the navbar, the main content, and the footer.",
+  "name" : "Page"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Raw HTML code to be rendered"
+    }
+  ],
+  "elementType" : "html",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "value",
+          "argumentValue" : "<b>here's some html<\/b>"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders raw HTML",
+  "name" : "HTML"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Text to be rendered"
+    }
+  ],
+  "elementType" : "text",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container",
+    "form"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "value",
+          "argumentValue" : "Here's some text"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a paragraph of text",
+  "name" : "Text"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "text",
+      "type" : "String",
+      "description" : "Text to be rendered"
+    },
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL to link to"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the link"
+    }
+  ],
+  "elementType" : "link",
+  "attachableTo" : [
+    "page",
+    "navbar",
+    "card",
+    "form",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a link"
+        },
+        {
+          "argumentName" : "url",
+          "argumentValue" : "https:\/\/www.pycob.com"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a link",
+  "name" : "Link"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "text",
+      "type" : "String",
+      "description" : "Text to be rendered"
+    },
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL to link to"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the link"
+    }
+  ],
+  "elementType" : "plainlink",
+  "attachableTo" : [
+    "page",
+    "navbar",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a link"
+        },
+        {
+          "argumentName" : "url",
+          "argumentValue" : "https:\/\/www.pycob.com"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a link without any styling",
+  "name" : "Unstyled Link"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "defaultValue" : "True",
+      "name" : "show_dots",
+      "type" : "Optional Boolean",
+      "description" : "Whether or not to show dots"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the list"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Items to be rendered"
+    }
+  ],
+  "postInitPythonFunc" : "if self.show_dots:\n    self.classes += \"list-disc\"\nelse:\n    self.classes += \"list-none\"",
+  "elementType" : "list",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container",
+    "form"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a list of items",
+  "name" : "List"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Text to be rendered"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the list item"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "svg",
+      "type" : "Optional String",
+      "description" : "SVG to render inside the list"
+    },
+    {
+      "defaultValue" : "None",
+      "name" : "is_checked",
+      "type" : "Optional Boolean",
+      "description" : "Whether or not the item is checked"
+    }
+  ],
+  "postInitPythonFunc" : "if self.is_checked is not None:\n    if self.is_checked:\n        self.svg = '''<svg class=\"w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\"><\/path><\/svg>'''\n    else:\n        self.svg = '''<svg class=\"w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\"><path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z\" clip-rule=\"evenodd\"><\/path><\/svg>'''",
+  "elementType" : "listitem",
+  "attachableTo" : [
+    "list"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "value",
+          "argumentValue" : "Item 1"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders an item in a list",
+  "name" : "List Item"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL of the image"
+    },
+    {
+      "defaultValue" : "Image",
+      "name" : "alt",
+      "type" : "String",
+      "description" : "Alt text for the image"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the image"
+    }
+  ],
+  "elementType" : "image",
+  "attachableTo" : [
+    "page",
+    "card",
+    "form",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "url",
+          "argumentValue" : "https:\/\/cdn.pycob.com\/pycob_with_text_256.png"
+        },
+        {
+          "argumentName" : "alt",
+          "argumentValue" : "Pycob logo"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders an image",
+  "name" : "Image"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "text",
+      "type" : "String",
+      "description" : "Text to be rendered"
+    },
+    {
+      "defaultValue" : "5",
+      "name" : "size",
+      "type" : "Optional Integer",
+      "description" : "Size of the header. Choose 1-9"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the header"
+    }
+  ],
+  "postInitPythonFunc" : "if size == 1:\n    self.classes += \" text-lg sm:text-xl\"\nelif size == 2:\n    self.classes += \" text-lg sm:text-2xl\"\nelif size == 3:\n    self.classes += \" text-lg sm:text-3xl\"\nelif size == 4:\n    self.classes += \" text-lg sm:text-4xl\"\nelif size == 5:\n    self.classes += \" text-xl sm:text-5xl\"\nelif size == 6:\n    self.classes += \" text-2xl sm:text-6xl\"\nelif size == 7:\n    self.classes += \" text-3xl sm:text-7xl\"\nelif size == 8:\n    self.classes += \" text-4xl sm:text-8xl\"\nelif size == 9:\n    self.classes += \" text-5xl sm:text-9xl\"\nelse:\n    raise ValueError(\"Header size must be between 1 and 9\")",
+  "elementType" : "header",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a regular header"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a small header"
+        },
+        {
+          "argumentName" : "size",
+          "argumentValue" : 1
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a big header"
+        },
+        {
+          "argumentName" : "size",
+          "argumentValue" : 8
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a header",
+  "name" : "Header"
+},
+{
+  "category" : "Layout",
+  "arguments" : [
+    {
+      "defaultValue" : "False",
+      "name" : "center_content",
+      "type" : "Optional Boolean",
+      "description" : "Whether the card contents should be centered"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the card"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to be rendered inside the card"
+    }
+  ],
+  "elementType" : "card",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a card",
+  "name" : "Card"
+},
+{
+  "category" : "Layout",
+  "arguments" : [
+    {
+      "defaultValue" : "None",
+      "name" : "grid_columns",
+      "type" : "Optional Integer",
+      "description" : "Number of columns (if any) to use. 1-12"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the container"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to be rendered inside the container"
+    }
+  ],
+  "postInitPythonFunc" : "if grid_columns is not None:\n    self.classes += \" grid gap-6 md:grid-cols-\" + str(grid_columns)",
+  "elementType" : "container",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container",
+    "form"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a container to help with layout",
+  "name" : "Container"
+},
+{
+  "category" : "Layout",
+  "arguments" : [
+    {
+      "name" : "text",
+      "type" : "String",
+      "description" : "Text to be rendered"
+    },
+    {
+      "name" : "badge",
+      "type" : "Optional String",
+      "description" : "Text to be rendered inside the badge"
+    },
+    {
+      "defaultValue" : "indigo",
+      "name" : "color",
+      "type" : "Optional String",
+      "description" : "Color of the. Choose 'indigo', 'orange', or 'red'"
+    }
+  ],
+  "elementType" : "alert",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a success alert"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's a warning alert"
+        },
+        {
+          "argumentName" : "badge",
+          "argumentValue" : "Warning"
+        },
+        {
+          "argumentName" : "color",
+          "argumentValue" : "orange"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "text",
+          "argumentValue" : "Here's an error alert"
+        },
+        {
+          "argumentName" : "badge",
+          "argumentValue" : "Delete?"
+        },
+        {
+          "argumentName" : "color",
+          "argumentValue" : "red"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders an alert",
+  "name" : "Alert"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Code to be rendered"
+    },
+    {
+      "name" : "header",
+      "type" : "Optional String",
+      "description" : "Header to be rendered above the code block"
+    },
+    {
+      "defaultValue" : ">>>",
+      "name" : "prefix",
+      "type" : "Optional String",
+      "description" : "Prefix to be rendered before the code block"
+    }
+  ],
+  "postInitPythonFunc" : "# Replace < and > in prefix:\nself.prefix = self.prefix.replace(\"<\", \"&lt;\").replace(\">\", \"&gt;\")",
+  "elementType" : "code",
+  "attachableTo" : [
+    "page",
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "value",
+          "argumentValue" : "Here's some code"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "value",
+          "argumentValue" : "Here's some code with a header"
+        },
+        {
+          "argumentName" : "header",
+          "argumentValue" : "With Header"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a block of code",
+  "name" : "Code"
+},
+{
+  "category" : "Basic HTML",
+  "arguments" : [
+
+  ],
+  "elementType" : "divider",
+  "attachableTo" : [
+    "page",
+    "card"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+
+      ]
+    }
+  ],
+  "description" : "Renders a divider",
+  "name" : "Divider"
+},
+{
+  "category" : "Layout",
+  "arguments" : [
+    {
+      "name" : "id",
+      "type" : "String",
+      "description" : "ID for the section. This is what will appear in the link as \/page#id"
+    },
+    {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name of the section. This is what will appear in the navigation bar"
+    },
+    {
+      "defaultValue" : "1",
+      "name" : "level",
+      "type" : "Optional Integer",
+      "description" : "Level of the section. This is the indentation that will appear in the navigation bar"
+    }
+  ],
+  "elementType" : "section",
+  "attachableTo" : [
+    "page"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "id",
+          "argumentValue" : "section1"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "Sample Section 1"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "id",
+          "argumentValue" : "section2"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "Sample Section 2"
+        },
+        {
+          "argumentName" : "level",
+          "argumentValue" : 2
+        }
+      ]
+    }
+  ],
+  "description" : "Creates an invisible element that can be used to link to in the sidebar",
+  "name" : "Section"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "defaultValue" : "?",
+      "name" : "action",
+      "type" : "Optional String",
+      "description" : "Action for the form. This is the page that the form will submit to. Defaults to the current page"
+    },
+    {
+      "defaultValue" : "GET",
+      "name" : "method",
+      "type" : "Optional String",
+      "description" : "Method for the form (i.e. GET, POST)"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "List of Component of the form"
+    }
+  ],
+  "elementType" : "form",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a form",
+  "name" : "Form"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "name" : "label",
+      "type" : "String",
+      "description" : "Label for the form text"
+    },
+    {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name for the form text"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "placeholder",
+      "type" : "Optional String",
+      "description" : "Placeholder"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "value",
+      "type" : "Optional String",
+      "description" : "Value if you want to pre-populate"
+    }
+  ],
+  "elementType" : "formtext",
+  "attachableTo" : [
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Name"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "name"
+        },
+        {
+          "argumentName" : "placeholder",
+          "argumentValue" : "John Doe"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Email"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "email"
+        },
+        {
+          "argumentName" : "placeholder",
+          "argumentValue" : "test@test.com"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a form",
+  "name" : "Form Text"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "defaultValue" : "Your E-mail",
+      "name" : "label",
+      "type" : "Optional String",
+      "description" : "Label for the form email"
+    },
+    {
+      "defaultValue" : "email",
+      "name" : "name",
+      "type" : "Optional String",
+      "description" : "Name for the form email"
+    },
+    {
+      "defaultValue" : "user@example.com",
+      "name" : "placeholder",
+      "type" : "Optional String",
+      "description" : "Placeholder"
+    }
+  ],
+  "elementType" : "formemail",
+  "attachableTo" : [
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Email"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "email"
+        },
+        {
+          "argumentName" : "placeholder",
+          "argumentValue" : "test@pycob.com"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a form email",
+  "name" : "Form Email"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "defaultValue" : "Password",
+      "name" : "label",
+      "type" : "Optional String",
+      "description" : "Label for the form password"
+    },
+    {
+      "defaultValue" : "password",
+      "name" : "name",
+      "type" : "Optional String",
+      "description" : "Name for the form password"
+    },
+    {
+      "defaultValue" : "password",
+      "name" : "placeholder",
+      "type" : "Optional String",
+      "description" : "Placeholder"
+    }
+  ],
+  "elementType" : "formpassword",
+  "attachableTo" : [
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Password"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "password"
+        },
+        {
+          "argumentName" : "placeholder",
+          "argumentValue" : "********"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a form password",
+  "name" : "Form Password"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "name" : "label",
+      "type" : "String",
+      "description" : "Label for the form select"
+    },
+    {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name for the form select"
+    },
+    {
+      "name" : "options",
+      "type" : "Untyped",
+      "description" : "Options for the form select"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "value",
+      "type" : "Optional String",
+      "description" : "Selected value"
+    }
+  ],
+  "postInitPythonFunc" : "self.components = []\n\nif value == \"\":\n    self.components.append(HtmlComponent('<option value=\"\" selected disabled hidden>Select an option<\/option>'))\n\nfor option in self.options:\n    if isinstance(option, str):\n        if option == value:\n            self.components.append(SelectoptionComponent(label=option, value=option, selected='selected'))\n        else:\n            self.components.append(SelectoptionComponent(label=option, value=option))\n    else:\n        if option['value'] == value:\n            self.components.append(SelectoptionComponent(label=option['label'], value=option['value'], selected='selected'))\n        else:\n            self.components.append(SelectoptionComponent(label=option['label'], value=option['value']))",
+  "elementType" : "formselect",
+  "attachableTo" : [
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Select"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "select"
+        },
+        {
+          "argumentName" : "options",
+          "argumentValue" : "[{'value': 'US', 'label': 'United States'}, {'value': 'CA', 'label': 'Canada'}]"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a form select",
+  "name" : "Form Select"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "name" : "name",
+      "type" : "String",
+      "description" : "Name for the form hidden"
+    },
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Value for the form hidden"
+    }
+  ],
+  "elementType" : "formhidden",
+  "attachableTo" : [
+    "form"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "name",
+          "argumentValue" : "hidden"
+        },
+        {
+          "argumentName" : "value",
+          "argumentValue" : "hidden"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a hidden field on a form. This is useful for carrying state between pages without having to store data in the database.",
+  "name" : "Form Hidden Field"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "label",
+      "type" : "String",
+      "description" : "Label for the select option"
+    },
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Value for the select option"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "selected",
+      "type" : "Optional String",
+      "description" : "Use 'selected' if this is selected"
+    }
+  ],
+  "elementType" : "selectoption",
+  "attachableTo" : [
+    "formselect"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "United States"
+        },
+        {
+          "argumentName" : "value",
+          "argumentValue" : "US"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a select option",
+  "name" : "Select Option"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "defaultValue" : "Your Message",
+      "name" : "label",
+      "type" : "Optional String",
+      "description" : "Label for the text area"
+    },
+    {
+      "defaultValue" : "message",
+      "name" : "name",
+      "type" : "Optional String",
+      "description" : "Name for the text area"
+    },
+    {
+      "defaultValue" : "Leave a comment...",
+      "name" : "placeholder",
+      "type" : "Optional String",
+      "description" : "Placeholder"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "value",
+      "type" : "Optional String",
+      "description" : "Value if you want to pre-populate"
+    }
+  ],
+  "elementType" : "formtextarea",
+  "attachableTo" : [
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Message"
+        },
+        {
+          "argumentName" : "name",
+          "argumentValue" : "message"
+        },
+        {
+          "argumentName" : "placeholder",
+          "argumentValue" : "Your message"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a text area",
+  "name" : "Text Area"
+},
+{
+  "category" : "Form",
+  "arguments" : [
+    {
+      "defaultValue" : "Submit",
+      "name" : "label",
+      "type" : "Optional String",
+      "description" : "Label for the form submit button"
+    }
+  ],
+  "elementType" : "formsubmit",
+  "attachableTo" : [
+    "form",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Submit"
+        }
+      ]
+    },
+    {
+      "arguments" : [
+        {
+          "argumentName" : "label",
+          "argumentValue" : "Save"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a form submit button",
+  "name" : "Form Submit"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to render in the table"
+    }
+  ],
+  "elementType" : "rawtable",
+  "attachableTo" : [
+    "page",
+    "card",
+    "form"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table manually by constructing the table header, body, content, etc.. This is useful if you want to customize the table more than what the other table functions allow. Most of the time you'll use the other table functions instead of this one.",
+  "name" : "Raw HTML Table"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to render in the table head"
+    }
+  ],
+  "elementType" : "tablehead",
+  "attachableTo" : [
+    "rawtable"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table head",
+  "name" : "Table Head"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to render in the table row"
+    }
+  ],
+  "elementType" : "tablerow",
+  "attachableTo" : [
+    "rawtable",
+    "tablehead",
+    "tablebody"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table row",
+  "name" : "Table Row"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to render in the table column"
+    }
+  ],
+  "elementType" : "tablecol",
+  "attachableTo" : [
+    "tablehead",
+    "tablerow"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table column",
+  "name" : "Table Column"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "Components to render in the table body"
+    }
+  ],
+  "elementType" : "tablebody",
+  "attachableTo" : [
+    "rawtable"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table body",
+  "name" : "Table Body"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "String to render in the table cell"
+    }
+  ],
+  "elementType" : "tablecell",
+  "attachableTo" : [
+    "tablehead",
+    "tablerow"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table cell",
+  "name" : "Table Cell"
+},
+{
+  "category" : "Table",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "String to render in the table cell header"
+    }
+  ],
+  "elementType" : "tablecellheader",
+  "attachableTo" : [
+    "tablehead",
+    "tablerow"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a table cell header",
+  "name" : "Table Cell Header"
+},
+{
+  "category" : "Advanced",
+  "arguments" : [
+    {
+      "name" : "dataframe",
+      "type" : "Untyped",
+      "description" : "Dataframe to render"
+    },
+    {
+      "name" : "hide_fields",
+      "type" : "List",
+      "description" : "List of fields to hide"
+    },
+    {
+      "name" : "action_buttons",
+      "type" : "Components",
+      "description" : "Row actions to render"
+    }
+  ],
+  "elementType" : "pandastable",
+  "attachableTo" : [
+    "page",
+    "card"
+  ],
+  "exampleCode" : [
+    {
+      "setup" : [
+        "data = {\n\"calories\": [420, 380, 390],\n\"duration\": [50, 40, 45],\n\"large_numbers\": [9000, 9000000, 9000000000],\n}",
+        "df = pd.DataFrame(data)"
+      ],
+      "arguments" : [
+        {
+          "argumentName" : "dataframe",
+          "argumentValue" : "df"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a pandas table",
+  "name" : "Pandas Table"
+},
+{
+  "category" : "Charts",
+  "arguments" : [
+    {
+      "name" : "fig",
+      "type" : "Untyped",
+      "description" : "Figure to render"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "id",
+      "type" : "Optional String",
+      "description" : "Unique ID for this element. Will default to a UUID."
+    }
+  ],
+  "postInitPythonFunc" : "if id == \"\":\n    self.id = str(uuid.uuid4())\nself.fig = fig.to_json()",
+  "elementType" : "plotlyfigure",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a plotly figure",
+  "name" : "Plotly Figure"
+},
+{
+  "category" : "Advanced",
+  "arguments" : [
+    {
+      "name" : "dataframe",
+      "type" : "Untyped",
+      "description" : "Dataframe to render"
+    },
+    {
+      "name" : "action_buttons",
+      "type" : "Components",
+      "description" : "Row actions to render"
+    }
+  ],
+  "elementType" : "datagrid",
+  "attachableTo" : [
+    "page",
+    "card"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a data grid",
+  "name" : "Data Grid"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "label",
+      "type" : "String",
+      "description" : "Label for the button. Use {col_name} to use a column value. If you use just the column value, the button will replace that column. If you use a static string, a column will be added for the button."
+    },
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL to navigate to when the button is clicked. Use {col_name} to include the column value in the link"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to add to the button"
+    },
+    {
+      "defaultValue" : "True",
+      "name" : "open_in_new_window",
+      "type" : "Optional Boolean",
+      "description" : "Open the link in a new window"
+    }
+  ],
+  "elementType" : "rowaction",
+  "attachableTo" : [
+
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a row action",
+  "name" : "Row Action"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "String",
+      "description" : "Title of the navbar"
+    },
+    {
+      "name" : "logo",
+      "type" : "Optional String",
+      "description" : "URL for the logo of the navbar"
+    },
+    {
+      "defaultValue" : "Sign In",
+      "name" : "button_label",
+      "type" : "Optional String",
+      "description" : "Label for the button"
+    },
+    {
+      "defaultValue" : "\/auth\/login",
+      "name" : "button_url",
+      "type" : "Optional String",
+      "description" : "URL for the button"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "button_svg",
+      "type" : "Optional String",
+      "description" : "SVG for the button"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "List of links for the navbar"
+    }
+  ],
+  "postInitPythonFunc" : "if button_label == \"Sign In\" and button_svg == \"\":\n    self.button_svg = '<svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"ml-1 h-4 w-4\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14M12 5l7 7-7 7\"><\/path><\/svg>'\n\nif button_svg == \"\":\n    self.button_svg = '<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"ml-1 h-4 w-4\" viewBox=\"0 0 24 24\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z\"><\/path><\/svg>'",
+  "elementType" : "navbar",
+  "attachableTo" : [
+    "page"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a navbar",
+  "name" : "Navbar"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "String",
+      "description" : "Title of the footer"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "subtitle",
+      "type" : "Optional String",
+      "description" : "Subtitle of the footer"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "logo",
+      "type" : "Optional String",
+      "description" : "URL for the logo of the footer"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "List of category components for the footer"
+    }
+  ],
+  "elementType" : "footer",
+  "attachableTo" : [
+    "page"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a footer",
+  "name" : "Footer"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "String",
+      "description" : "Title of the category"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "List of Footer Link in the category"
+    }
+  ],
+  "elementType" : "footercategory",
+  "attachableTo" : [
+    "footer"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a category in the footer",
+  "name" : "Footer Category"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "String",
+      "description" : "Title of the link"
+    },
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL of the link"
+    }
+  ],
+  "elementType" : "footerlink",
+  "attachableTo" : [
+    "footercategory"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a link in the footer",
+  "name" : "Footer Link"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "List of Component of the sidebar"
+    }
+  ],
+  "elementType" : "sidebar",
+  "attachableTo" : [
+    "page"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a sidebar",
+  "name" : "Sidebar"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "String",
+      "description" : "Title of the category"
+    },
+    {
+      "name" : "components",
+      "type" : "Components",
+      "description" : "List of Sidebar Link in the category"
+    }
+  ],
+  "elementType" : "sidebarcategory",
+  "attachableTo" : [
+    "sidebar"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a category in the sidebar",
+  "name" : "Sidebar Category"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "title",
+      "type" : "String",
+      "description" : "Title of the link"
+    },
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL of the link"
+    }
+  ],
+  "elementType" : "sidebarlink",
+  "attachableTo" : [
+    "sidebarcategory"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a link in the sidebar",
+  "name" : "Sidebar Link"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "value",
+      "type" : "String",
+      "description" : "Code to be rendered"
+    },
+    {
+      "defaultValue" : "python",
+      "name" : "language",
+      "type" : "Optional String",
+      "description" : "Language mode for syntax highlighting"
+    }
+  ],
+  "elementType" : "codeeditor",
+  "attachableTo" : [
+    "page"
+  ],
+  "exampleCode" : [
+    {
+      "arguments" : [
+        {
+          "argumentName" : "value",
+          "argumentValue" : "Here's some code"
+        }
+      ]
+    }
+  ],
+  "description" : "Renders a code editor",
+  "name" : "Code Editor"
+},
+{
+  "category" : "Advanced",
+  "arguments" : [
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL of the GitHub file to be rendered"
+    }
+  ],
+  "elementType" : "emgithub",
+  "attachableTo" : [
+    "page",
+    "card"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a block of code from a github URL",
+  "name" : "Github Embed"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "name" : "job_id",
+      "type" : "String",
+      "description" : "Job id to check the status of"
+    },
+    {
+      "name" : "redirect_url",
+      "type" : "String",
+      "description" : "URL to redirect to when the script is complete"
+    }
+  ],
+  "elementType" : "scriptstatus",
+  "attachableTo" : [
+    "page",
+    "card",
+    "container"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Shows the status of a script execution and redirects to a new page when complete",
+  "name" : "Script Status"
+}]

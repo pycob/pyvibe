@@ -1,12 +1,106 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>PageBuilder</title>
-    <!--Viewport-->
+<!doctype html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.pycob.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.pycob.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.pycob.com/favicon-16x16.png">
+    <link rel="mask-icon" href="https://cdn.pycob.com/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://cdn.pycob.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="msapplication-config" content="https://cdn.pycob.com/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <h1>PageBuilder</h1>
-  </body>
+    <title>PyVibe: TODO: Documentation</title>
+    <meta property="og:title" content="PyVibe: TODO: Documentation">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.18.2.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <script>
+    function toggleDarkMode() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark')
+            document.getElementById("moon").classList.add("hidden")
+            document.getElementById("sun").classList.remove("hidden")
+        } else {
+            document.documentElement.classList.add('dark')
+            document.getElementById("sun").classList.add("hidden")
+            document.getElementById("moon").classList.remove("hidden")
+        }
+    }
+
+    function setLoading(el) {
+        el.querySelectorAll("button[type=submit]").forEach((button) => {
+            button.innerHTML = '<svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/></svg>Loading...';
+            button.disabled = true;
+        });
+    }
+
+    function toggleMore(button) {
+        x = button
+
+        if (x.innerHTML === "more") {
+            x.innerHTML = "less";
+            text_full = x.getAttribute("data-text-full")
+            text_truncated = x.getAttribute("data-text-truncated")
+
+            x.parentElement.innerHTML = text_full + ' <button data-text-full="' + text_full + '" data-text-truncated="' + text_truncated + '" onclick="toggleMore(this)" class="text-blue-500">less</button>'
+        } else {
+            x.innerHTML = "more";
+            text_full = x.getAttribute("data-text-full")
+            text_truncated = x.getAttribute("data-text-truncated")
+
+            x.parentElement.innerHTML = text_truncated + ' <button data-text-full="' + text_full + '" data-text-truncated="' + text_truncated + '" onclick="toggleMore(this)" class="text-blue-500">more</button>'
+        }
+    }
+    </script>
+    <style>
+    .gradient-background {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 180s ease infinite;
+    }
+
+    .gradient-text {
+        color: transparent;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation: gradient 2s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    </style>
+    </head>
+    <body class="flex flex-col h-screen dark:bg-gray-900 ">
+        <div id="page-container" class="container px-5 my-5 mx-auto">
+            <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">PyVibe</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">TODO: Documentation</p> 
+        </div>
+    </body>
 </html>

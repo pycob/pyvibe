@@ -3,7 +3,7 @@ import Foundation
 // Generator
 
 struct Generator {
-    static func generatePageBuilder() -> String {
+    static func generatePyVibe() -> String {
         var pythonCode: String = """
         from __future__ import annotations
         from .component_interface import *
@@ -123,7 +123,7 @@ class \(className)(Component):
         return pythonCode
     }
 
-    static func generatePageBuilderComponents() -> String {
+    static func generatePyVibeComponents() -> String {
         var pythonCode: String = ""
 
         pythonCode += """
@@ -2185,12 +2185,12 @@ outputJson = "[" + ElementType.allCases.map { toJson($0.element) } .joined(separ
 
 try outputJson.write(toFile: "spec/spec.json", atomically: true, encoding: .utf8)
 
-let generatedComponents: String = Generator.generatePageBuilder()
+let generatedComponents: String = Generator.generatePyVibe()
 
 let advancedPy: String = try! String(contentsOfFile: "generator/includes/advanced.py.txt")
 
 let allComponents: String = generatedComponents + "\n#\n#\n# Begin Manual Code\n#\n#\n#\n" + advancedPy
 
-try allComponents.write(toFile: "src/pagebuilder/__init__.py", atomically: true, encoding: .utf8)
+try allComponents.write(toFile: "src/pyvibe/__init__.py", atomically: true, encoding: .utf8)
 
 print("Done")

@@ -1,4 +1,4 @@
-# Contributing to PageBuilder
+# Contributing to PyVibe
 
 ## Architecture
 `generate.swift`, `generate.py`, and `pdoc` are executed. Everything else is either an input or an output
@@ -14,7 +14,7 @@ flowchart TD
     spec --> generate.py[[generator/generate.py]]
     generate.py --> reference(docs/reference.html)
     init --> pdoc[[pdoc]]
-    pdoc --> pagebuilder.html(docs/pagebuilder.html)
+    pdoc --> pyvibe.html(docs/pyvibe.html)
 ```
 
 Due to the architecture above, pull requests should be submitted only to files in the `/generator` subdirectory since everything else is generated from those files

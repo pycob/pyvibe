@@ -62,7 +62,7 @@ class CardComponent(Component):
     self.components.append(component)
     return self
   def add_html(self, value: str) -> HtmlComponent:
-    """Renders raw HTML
+    """Renders raw HTML. This is meant to be an escape hatch for when you need to render something that isn't supported by PyVibe.
 
     Args:
         value (str): Raw HTML code to be rendered
@@ -562,7 +562,7 @@ class ContainerComponent(Component):
     self.components.append(component)
     return self
   def add_html(self, value: str) -> HtmlComponent:
-    """Renders raw HTML
+    """Renders raw HTML. This is meant to be an escape hatch for when you need to render something that isn't supported by PyVibe.
 
     Args:
         value (str): Raw HTML code to be rendered
@@ -894,12 +894,12 @@ class DividerComponent(Component):
   def to_html(self):
     return '''<hr class="my-5 border-gray-300 w-full">'''
 
-class FooterComponent(Component):
+class Footer(Component):
   """You don't normally need to invoke this constructor directly.
   
   Instead, use the `Page.add_footer` method of the parent component.
   """
-  def __init__(self, title: str, subtitle: str = '', logo: str = '', components: list = None):    
+  def __init__(self, title: str = '', subtitle: str = '', logo: str = '', components: list = None):    
     self.title = title
     self.subtitle = subtitle
     self.logo = logo
@@ -1632,12 +1632,12 @@ class ListitemComponent(Component):
     ''' + self.value + '''
 </li>'''
 
-class NavbarComponent(Component):
+class Navbar(Component):
   """You don't normally need to invoke this constructor directly.
   
   Instead, use the `Page.add_navbar` method of the parent component.
   """
-  def __init__(self, title: str, logo: str = '', button_label: str = 'Sign In', button_url: str = '/auth/login', button_svg: str = '', components: list = None):    
+  def __init__(self, title: str, logo: str = 'https://cdn.pycob.com/pycob_hex.png', button_label: str = 'Sign In', button_url: str = '/auth/login', button_svg: str = '', components: list = None):    
     self.title = title
     self.logo = logo
     self.button_label = button_label
@@ -1734,16 +1734,54 @@ class NavbarComponent(Component):
     return new_component
     
 
+  def add_navbarlink(self, text: str, url: str, classes: str = '') -> NavbarlinkComponent:
+    """Renders a link in the navbar
+
+    Args:
+        text (str): Text to be rendered
+        url (str): URL to link to
+        classes (str): Optional. Classes to be applied to the link
+    
+    Returns:
+        NavbarlinkComponent: The new component
+    """
+    new_component = NavbarlinkComponent(text, url, classes)    
+    self.components.append(new_component)
+    return new_component
+    
+
+class NavbarlinkComponent(Component):
+  """You don't normally need to invoke this constructor directly.
+  
+  Instead, use the `Page.add_navbarlink` method of the parent component.
+  """
+  def __init__(self, text: str, url: str, classes: str = ''):    
+    self.text = text
+    self.url = url
+    self.classes = classes
+    
+
+  def __enter__(self):
+    return self
+
+  def __exit__(self, exc_type, exc_value, traceback):
+    pass
+
+  def to_html(self):
+    return '''<a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 ''' + self.classes + '''" href="''' + self.url + '''">''' + self.text + '''</a>'''
+
 class Page(Component):
   """You don't normally need to invoke this constructor directly.
   
   Instead, use the `Page.add_page` method of the parent component.
   """
-  def __init__(self, title: str = '', description: str = '', image: str = '', additional_head: str = '', components: list = None):    
+  def __init__(self, title: str = '', description: str = '', image: str = '', additional_head: str = '', navbar: Navbar = Navbar(title='PyVibe App'), footer: Footer = Footer(), components: list = None):    
     self.title = title
     self.description = description
     self.image = image
     self.additional_head = additional_head
+    self.navbar = navbar
+    self.footer = footer
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
     self.components = components or []
     
@@ -1855,9 +1893,11 @@ class Page(Component):
     </style>
     </head>
     <body class="flex flex-col h-screen dark:bg-gray-900 ">
+        ''' + self.navbar.to_html() + '''
         <div id="page-container" class="container px-5 my-5 mx-auto">
             ''' + '\n'.join(map(lambda x: x.to_html(), self.components)) + ''' 
         </div>
+        ''' + self.footer.to_html() + '''
     </body>
 </html>'''
 
@@ -1869,7 +1909,7 @@ class Page(Component):
     self.components.append(component)
     return self
   def add_html(self, value: str) -> HtmlComponent:
-    """Renders raw HTML
+    """Renders raw HTML. This is meant to be an escape hatch for when you need to render something that isn't supported by PyVibe.
 
     Args:
         value (str): Raw HTML code to be rendered
@@ -2145,56 +2185,6 @@ class Page(Component):
     return self
     
 
-  def add_navbar(self, title: str, logo: str = '', button_label: str = 'Sign In', button_url: str = '/auth/login', button_svg: str = '', components: list = None) -> NavbarComponent:
-    """Renders a navbar
-
-    Args:
-        title (str): Title of the navbar
-        logo (str): Optional. URL for the logo of the navbar
-        button_label (str): Optional. Label for the button
-        button_url (str): Optional. URL for the button
-        button_svg (str): Optional. SVG for the button
-        components (list): List of links for the navbar
-    
-    Returns:
-        NavbarComponent: The new component
-    """
-    new_component = NavbarComponent(title, logo, button_label, button_url, button_svg, components)    
-    self.components.append(new_component)
-    return new_component
-    
-
-  def add_footer(self, title: str, subtitle: str = '', logo: str = '', components: list = None) -> FooterComponent:
-    """Renders a footer
-
-    Args:
-        title (str): Title of the footer
-        subtitle (str): Optional. Subtitle of the footer
-        logo (str): Optional. URL for the logo of the footer
-        components (list): List of category components for the footer
-    
-    Returns:
-        FooterComponent: The new component
-    """
-    new_component = FooterComponent(title, subtitle, logo, components)    
-    self.components.append(new_component)
-    return new_component
-    
-
-  def add_sidebar(self, components: list = None) -> SidebarComponent:
-    """Renders a sidebar
-
-    Args:
-        components (list): List of Component of the sidebar
-    
-    Returns:
-        SidebarComponent: The new component
-    """
-    new_component = SidebarComponent(components)    
-    self.components.append(new_component)
-    return new_component
-    
-
   def add_codeeditor(self, value: str, language: str = 'python') -> CodeeditorComponent:
     """Renders a code editor
 
@@ -2464,7 +2454,7 @@ class SelectoptionComponent(Component):
   def to_html(self):
     return '''<option value="''' + self.value + '''" ''' + self.selected + '''>''' + self.label + '''</option>'''
 
-class SidebarComponent(Component):
+class Sidebar(Component):
   """You don't normally need to invoke this constructor directly.
   
   Instead, use the `Page.add_sidebar` method of the parent component.

@@ -50,6 +50,8 @@ category_order = [
 
 categories = {}
 
+# sidebar = page.add_sidebar()
+
 for element in spec:
     category = element['category']
 
@@ -60,13 +62,20 @@ for element in spec:
 
 for category in category_order:
     page.add_section(category, category)
+    # sidebar_category = sidebar.add_sidebarcategory(category)
     page.add_header(category, 5)
 
     for element in categories[category]:
         page.add_section(element['elementType'], element['name'], level=2)
-        page.add_header(element['name'], 4)
+        # sidebar_category.add_sidebarlink(element['name'], "#"+element['name'])
+        if element['elementType'] != 'page':
+            page.add_header(element['name'] + f" (<code>.add_{element['elementType']}</code>)", 4)
+        else:
+            page.add_header(element['name'], 4)
         page.add_text(element['description'])
-        page.add_header("Use With", 3)
+
+        if 'attachableTo' in element:
+            page.add_header("Use With", 3)
 
         for attachableTo in element['attachableTo']:
             page.add_link(attachableTo, "#"+attachableTo)

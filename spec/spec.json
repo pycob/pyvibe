@@ -25,6 +25,18 @@
       "description" : "Additional HTML to be added to the head of the page"
     },
     {
+      "defaultValue" : "Navbar(title='PyVibe App')",
+      "name" : "navbar",
+      "type" : "Navbar",
+      "description" : "Navbar for the page"
+    },
+    {
+      "defaultValue" : "Footer()",
+      "name" : "footer",
+      "type" : "Footer",
+      "description" : "Footer for the page"
+    },
+    {
       "name" : "components",
       "type" : "Components",
       "description" : "The components to be rendered on the page"
@@ -72,7 +84,7 @@
       ]
     }
   ],
-  "description" : "Renders raw HTML",
+  "description" : "Renders raw HTML. This is meant to be an escape hatch for when you need to render something that isn't supported by PyVibe.",
   "name" : "HTML"
 },
 {
@@ -1352,6 +1364,7 @@
       "description" : "Title of the navbar"
     },
     {
+      "defaultValue" : "https:\/\/cdn.pycob.com\/pycob_hex.png",
       "name" : "logo",
       "type" : "Optional String",
       "description" : "URL for the logo of the navbar"
@@ -1383,7 +1396,7 @@
   "postInitPythonFunc" : "if button_label == \"Sign In\" and button_svg == \"\":\n    self.button_svg = '<svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"ml-1 h-4 w-4\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14M12 5l7 7-7 7\"><\/path><\/svg>'\n\nif button_svg == \"\":\n    self.button_svg = '<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"ml-1 h-4 w-4\" viewBox=\"0 0 24 24\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z\"><\/path><\/svg>'",
   "elementType" : "navbar",
   "attachableTo" : [
-    "page"
+
   ],
   "exampleCode" : [
 
@@ -1395,8 +1408,39 @@
   "category" : "Internal",
   "arguments" : [
     {
-      "name" : "title",
+      "name" : "text",
       "type" : "String",
+      "description" : "Text to be rendered"
+    },
+    {
+      "name" : "url",
+      "type" : "String",
+      "description" : "URL to link to"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "classes",
+      "type" : "Optional String",
+      "description" : "Classes to be applied to the link"
+    }
+  ],
+  "elementType" : "navbarlink",
+  "attachableTo" : [
+    "navbar"
+  ],
+  "exampleCode" : [
+
+  ],
+  "description" : "Renders a link in the navbar",
+  "name" : "Navbar Link"
+},
+{
+  "category" : "Internal",
+  "arguments" : [
+    {
+      "defaultValue" : "",
+      "name" : "title",
+      "type" : "Optional String",
       "description" : "Title of the footer"
     },
     {
@@ -1419,7 +1463,7 @@
   ],
   "elementType" : "footer",
   "attachableTo" : [
-    "page"
+
   ],
   "exampleCode" : [
 
@@ -1486,7 +1530,7 @@
   ],
   "elementType" : "sidebar",
   "attachableTo" : [
-    "page"
+
   ],
   "exampleCode" : [
 

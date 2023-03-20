@@ -213,6 +213,7 @@ enum ElementType: String, CaseIterable, Codable {
     case datagrid
     case rowaction
     case navbar
+    case navbarlink
     case footer
     case footercategory
     case footerlink
@@ -301,6 +302,8 @@ enum ElementType: String, CaseIterable, Codable {
             return RowActionElement()
         case .navbar:
             return NavbarElement()
+        case .navbarlink:
+            return NavbarLinkElement()
         case .footer:
             return FooterElement()
         case .footercategory:
@@ -338,6 +341,8 @@ enum ArgumentType: String, CaseIterable, Codable {
     case optionalBool = "Optional Boolean"
     case elements = "Components"
     case list = "List"
+    case navbar = "Navbar"
+    case footer = "Footer"
     case untyped = "Untyped"
 }
 
@@ -356,6 +361,14 @@ struct Argument: Codable {
             case .pycob:
                 if type == .elements {
                     return "''' + '\\n'.join(map(lambda x: x.to_html(), self.components)) + ''' "
+                }
+
+                if type == .navbar {
+                    return "''' + self.\(name).to_html() + '''"
+                }
+
+                if type == .footer {
+                    return "''' + self.\(name).to_html() + '''"
                 }
 
                 if type == .optionalInt || type == .int {
@@ -417,6 +430,10 @@ extension Array where Element == Argument {
                     return "\($0.name): list = None"
                 case .list:
                     return "\($0.name): list = []"
+                case .navbar:
+                    return "\($0.name): Navbar = \($0.defaultValue ?? "Navbar()")"
+                case .footer:
+                    return "\($0.name): Footer = \($0.defaultValue ?? "Footer()")"
                 case .untyped:
                     return "\($0.name)"
             }
@@ -472,6 +489,10 @@ extension Array where Element == Argument {
                     return "        \($0.name) (list): \($0.description)"
                 case .list:
                     return "        \($0.name) (list): \($0.description)"
+                case .navbar:
+                    return "        \($0.name) (Navbar): \($0.description)"
+                case .footer:
+                    return "        \($0.name) (Footer): \($0.description)"
                 case .untyped:
                     return "        \($0.name): \($0.description)"
             }
@@ -521,6 +542,8 @@ struct PageElement: Element {
         Argument(name: "description", type: .optionalString, description: "The SEO description of the page", defaultValue: ""),
         Argument(name: "image", type: .optionalString, description: "The SEO image of the page", defaultValue: ""),
         Argument(name: "additional_head", type: .optionalString, description: "Additional HTML to be added to the head of the page", defaultValue: ""),
+        Argument(name: "navbar", type: .navbar, description: "Navbar for the page", defaultValue: "Navbar(title='PyVibe App')"),
+        Argument(name: "footer", type: .footer, description: "Footer for the page", defaultValue: "Footer()"),
         Argument(name: "components", type: .elements, description: "The components to be rendered on the page"),
     ]
     let postInitPythonFunc: String? = nil
@@ -536,6 +559,8 @@ struct PageElement: Element {
         let description: String = arguments.get("description").templateVariable(in: renderingSystem)
         let image: String = arguments.get("image").templateVariable(in: renderingSystem)
         let additional_head: String = arguments.get("additional_head").templateVariable(in: renderingSystem)
+        let navbar: String = arguments.get("navbar").templateVariable(in: renderingSystem)
+        let footer: String = arguments.get("footer").templateVariable(in: renderingSystem)
         let components: String = arguments.get("components").templateVariable(in: renderingSystem)
 
         return """
@@ -639,9 +664,11 @@ struct PageElement: Element {
             </style>
             </head>
             <body class="flex flex-col h-screen dark:bg-gray-900 ">
+                \(navbar)
                 <div id="page-container" class="container px-5 my-5 mx-auto">
                     \(components)
                 </div>
+                \(footer)
             </body>
         </html>
         """
@@ -653,7 +680,7 @@ struct HtmlElement: Element {
     let name: String = "HTML"
     let attachableTo: [ElementType] = [.page, .card, .container]
     let category: DocumentationCategory = .basicHtml
-    let description: String = "Renders raw HTML"
+    let description: String = "Renders raw HTML. This is meant to be an escape hatch for when you need to render something that isn't supported by PyVibe."
     let arguments: [Argument] = [Argument(name: "value", type: .string, description: "Raw HTML code to be rendered")]
     let postInitPythonFunc: String? = nil
     let exampleCode: [ExampleCode] = [
@@ -1199,7 +1226,7 @@ struct SectionElement: Element {
 struct NavbarElement: Element {
     let elementType: ElementType = .navbar
     let name: String = "Navbar"
-    let attachableTo: [ElementType] = [.page]
+    let attachableTo: [ElementType] = []
     let category: DocumentationCategory = .internal
     let description: String = "Renders a navbar"
     let postInitPythonFunc: String? = """
@@ -1211,7 +1238,7 @@ struct NavbarElement: Element {
     """
     let arguments: [Argument] = [
         Argument(name: "title", type: .string, description: "Title of the navbar"),        
-        Argument(name: "logo", type: .optionalString, description: "URL for the logo of the navbar"),
+        Argument(name: "logo", type: .optionalString, description: "URL for the logo of the navbar", defaultValue: "https://cdn.pycob.com/pycob_hex.png"),
         Argument(name: "button_label", type: .optionalString, description: "Label for the button", defaultValue: "Sign In"),
         Argument(name: "button_url", type: .optionalString, description: "URL for the button", defaultValue: "/auth/login"),
         Argument(name: "button_svg", type: .optionalString, description: "SVG for the button", defaultValue: ""),
@@ -1270,15 +1297,38 @@ struct NavbarElement: Element {
     }
 }
 
+struct NavbarLinkElement: Element {
+    let elementType: ElementType = .navbarlink
+    let name: String = "Navbar Link"
+    let attachableTo: [ElementType] = [.navbar]
+    let category: DocumentationCategory = .internal
+    let description: String = "Renders a link in the navbar"
+    let arguments: [Argument] = 
+            [ Argument(name: "text", type: .string, description: "Text to be rendered"),
+              Argument(name: "url", type: .string, description: "URL to link to"),
+              Argument(name: "classes", type: .optionalString, description: "Classes to be applied to the link", defaultValue: "")
+            ]
+    let postInitPythonFunc: String? = nil
+    let exampleCode: [ExampleCode] = []
+
+    func toTailwindHtmlTemplate(in renderingSystem: RenderingSystem) -> String {
+        let text: String = arguments.get("text").templateVariable(in: renderingSystem)
+        let url: String = arguments.get("url").templateVariable(in: renderingSystem)
+        let classes: String = arguments.get("classes").templateVariable(in: renderingSystem)
+
+        return "<a class=\"block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 \(classes)\" href=\"\(url)\">\(text)</a>"
+    }
+}
+
 struct FooterElement: Element {
     let elementType: ElementType = .footer
     let name: String = "Footer"
-    let attachableTo: [ElementType] = [.page]
+    let attachableTo: [ElementType] = []
     let category: DocumentationCategory = .internal
     let description: String = "Renders a footer"
     let postInitPythonFunc: String? = nil
     let arguments: [Argument] = [
-        Argument(name: "title", type: .string, description: "Title of the footer"),
+        Argument(name: "title", type: .optionalString, description: "Title of the footer", defaultValue: ""),
         Argument(name: "subtitle", type: .optionalString, description: "Subtitle of the footer", defaultValue: ""),
         Argument(name: "logo", type: .optionalString, description: "URL for the logo of the footer", defaultValue: ""),
         Argument(name: "components", type: .elements, description: "List of category components for the footer")
@@ -1394,7 +1444,7 @@ struct FormElement: Element {
 struct SidebarElement: Element {
     let elementType: ElementType = .sidebar
     let name: String = "Sidebar"
-    let attachableTo: [ElementType] = [.page]
+    let attachableTo: [ElementType] = []
     let category: DocumentationCategory = .internal
     let description: String = "Renders a sidebar"
     let postInitPythonFunc: String? = nil

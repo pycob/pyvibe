@@ -11,8 +11,8 @@
     <meta name="msapplication-config" content="https://cdn.pycob.com/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive PyVibe Tutorial</title>
-    <meta property="og:title" content="Interactive PyVibe Tutorial">
+    <title>Login</title>
+    <meta property="og:title" content="Login">
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     
@@ -135,104 +135,8 @@
     </div>
   </nav>
         <div id="page-container" class="container px-5 my-5 mx-auto">
-            <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Welcome to the PyVibe Tutorial!</p>
-<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">This is a work in progress.</p>
-<style type="text/css" media="screen">
-#editorContainer {
-    // width: calc( 100vw - 40px );
-    height: 500px;
-    max-height: calc( 80vh - 60px );
-    position: relative;
-    background-color: red;
-}
-#editor { 
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-</style>
-
-<div id="editorContainer">
-    <div id="editor">with page.add_card() as card:
-    card.add_header("Hello World")
-    card.add_text("This content was generated with Python (from the browser)!")
-</div> 
-</div>
-<script src="https://cdn.jsdelivr.net/gh/ajaxorg/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/python");
-
-    // const savedCode = localStorage.getItem('code');
-
-    // if (savedCode) {
-    //     editor.setValue(savedCode);
-    // }
-</script>
-
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>  
-    <script defer type="text/javascript">
-    var loadingButton = `
-        <button disabled class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Running...
-            </span>
-        </button>`
-
-    var runButton = `
-        <button onclick="runCode()" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Run
-            </span>
-        </button>`  
-
-      var pyodide;
-
-      async function main(){
-        pyodide = await loadPyodide();
-        await pyodide.loadPackage("micropip");
-        const micropip = pyodide.pyimport("micropip");
-        await micropip.install("pyvibe");
-
-        pyodide.runPython(`import pagebuilder as pv`);        
-        
-        document.getElementById("runButton").innerHTML = runButton;
-      }
-      main();
-
-      function runCode() {
-        document.getElementById("results").innerHTML = loadingButton;
-        pyodide.runPython(`page = pv.ContainerComponent()`);
-        pyodide.runPython(editor.getValue());
-
-        pyodide.runPython(`results = page.to_html()`);
-
-        results = pyodide.globals.get("results");
-
-        document.getElementById("results").innerHTML = results;
-
-        document.getElementById("runButton").innerHTML = runButton;
-      }
-    </script>
-
-<span id="runButton">
-<button disabled class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Preparing Pyodide...
-            </span>
-        </button>
-</span>
-<div id='results' class='border-dashed border-2 border-sky-500'></div>
-<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">TODO: Tutorial here</p>
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Page</p>
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Dataframes</p>
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Charts</p>
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Tables</p>
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Forms</p>
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Serving from Flask</p> 
+            <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Login</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">You can create your own login forms or link to third-party auth providers</p> 
         </div>
         <footer class="text-gray-600 body-font">
     <div class="container px-5 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">

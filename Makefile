@@ -1,10 +1,17 @@
 # define the name of the virtual environment directory
 VENV := venv
 
-all: docs/index.html
+all: venv docs/index.html
+
+venv: $(VENV)/bin/activate
 
 docs/index.html: src/pyvibe/__init.py___ generator/generate.py
+	./$(VENV)/bin/pip install pandas
 	./$(VENV)/bin/python3 generator/generate.py
+
+# pdoc: src/pyvibe/__init.py___
+# 	./$(VENV)/bin/pip install pdoc
+# 	./$(VENV)/bin/pdoc pyvibe --logo https://cdn.pycob.com/pycob_hex.png --logo-link https://www.pyvibe.com --no-show-source -e pycob=https://github.com/pycob/pyvibe/tree/main/src/pyvibe/ -n --docformat google -o docs/pdoc/
 
 # Build init.py when generate.swift changes
 src/pyvibe/__init.py___: generator/generate.swift

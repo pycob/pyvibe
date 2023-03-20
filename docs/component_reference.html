@@ -1,0 +1,4014 @@
+<!doctype html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.pycob.com/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.pycob.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.pycob.com/favicon-16x16.png">
+    <link rel="mask-icon" href="https://cdn.pycob.com/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://cdn.pycob.com/favicon.ico">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="msapplication-config" content="https://cdn.pycob.com/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Reference</title>
+    <meta property="og:title" content="Component Reference">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.18.2.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <script>
+    function toggleDarkMode() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark')
+            document.getElementById("moon").classList.add("hidden")
+            document.getElementById("sun").classList.remove("hidden")
+        } else {
+            document.documentElement.classList.add('dark')
+            document.getElementById("sun").classList.add("hidden")
+            document.getElementById("moon").classList.remove("hidden")
+        }
+    }
+
+    function setLoading(el) {
+        el.querySelectorAll("button[type=submit]").forEach((button) => {
+            button.innerHTML = '<svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/></svg>Loading...';
+            button.disabled = true;
+        });
+    }
+
+    function toggleMore(button) {
+        x = button
+
+        if (x.innerHTML === "more") {
+            x.innerHTML = "less";
+            text_full = x.getAttribute("data-text-full")
+            text_truncated = x.getAttribute("data-text-truncated")
+
+            x.parentElement.innerHTML = text_full + ' <button data-text-full="' + text_full + '" data-text-truncated="' + text_truncated + '" onclick="toggleMore(this)" class="text-blue-500">less</button>'
+        } else {
+            x.innerHTML = "more";
+            text_full = x.getAttribute("data-text-full")
+            text_truncated = x.getAttribute("data-text-truncated")
+
+            x.parentElement.innerHTML = text_truncated + ' <button data-text-full="' + text_full + '" data-text-truncated="' + text_truncated + '" onclick="toggleMore(this)" class="text-blue-500">more</button>'
+        }
+    }
+    </script>
+    <style>
+    .gradient-background {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 180s ease infinite;
+    }
+
+    .gradient-text {
+        color: transparent;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation: gradient 2s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    </style>
+    </head>
+    <body class="flex flex-col h-screen dark:bg-gray-900 ">
+        <div id="page-container" class="container px-5 my-5 mx-auto">
+            <span id=Basic HTML></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Basic HTML</p>
+<span id=html></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">HTML</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders raw HTML</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Raw HTML code to be rendered
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_html(value = '&lt;b&gt;heres some html&lt;/b&gt;')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <b>heres some html</b> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=text></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Text</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a paragraph of text</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">form.add_text(value = 'Heres some text')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Heres some text</p> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=link></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Link</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a link</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#navbar" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    navbar
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    text
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL to link to
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the link
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_link(text = 'Heres a link', url = 'https://www.pycob.com')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <p class="text-gray-500 dark:text-gray-400 ">
+    <a href="https://www.pycob.com" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    Heres a link
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=plainlink></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Unstyled Link</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a link without any styling</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#navbar" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    navbar
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    text
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL to link to
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the link
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_plainlink(text = 'Heres a link', url = 'https://www.pycob.com')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <a class="" href="https://www.pycob.com">Heres a link</a> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=list></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">List</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a list of items</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    show_dots
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Boolean
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    True
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Whether or not to show dots
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the list
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Items to be rendered
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=listitem></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">List Item</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders an item in a list</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#list" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    list
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the list item
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    svg
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    SVG to render inside the list
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    is_checked
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Boolean
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    None
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Whether or not the item is checked
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=image></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Image</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders an image</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL of the image
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    alt
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    'Image'
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Alt text for the image
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the image
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_image(url = 'https://cdn.pycob.com/pycob_with_text_256.png', alt = 'Pycob logo')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <img class="max-w-fit h-auto rounded-lg  " src="https://cdn.pycob.com/pycob_with_text_256.png" alt="Pycob logo"> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=header></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Header</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a header</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    text
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    size
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Integer
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    5
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Size of the header. Choose 1-9
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the header
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_header(text = 'Heres a regular header')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Heres a regular header</p> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_header(text = 'Heres a small header', size = 1)</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-xl ">Heres a small header</p> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_header(text = 'Heres a big header', size = 8)</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-4xl sm:text-8xl ">Heres a big header</p> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=code></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Code</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a block of code</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Code to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    header
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Header to be rendered above the code block
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    prefix
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    >>>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Prefix to be rendered before the code block
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_code(value = 'Heres some code')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">Heres some code</code>
+    </div>
+</div> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_code(value = 'Heres some code with a header', header = 'With Header')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500">With Header</code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">Heres some code with a header</code>
+    </div>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=divider></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Divider</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a divider</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">No Inputs</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">card.add_divider()</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <hr class="my-5 border-gray-300 w-full"> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=Layout></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Layout</p>
+<span id=card></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Card</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a card</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    center_content
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Boolean
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    False
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Whether the card contents should be centered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the card
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to be rendered inside the card
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=container></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Container</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a container to help with layout</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    grid_columns
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Integer
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    None
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Number of columns (if any) to use. 1-12
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to be applied to the container
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to be rendered inside the container
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=alert></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Alert</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders an alert</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    text
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    badge
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Text to be rendered inside the badge
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    color
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    indigo
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Color of the. Choose 'indigo', 'orange', or 'red'
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_alert(text = 'Heres a success alert')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="text-center py-4 lg:px-4">
+<div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+    <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"></span>
+    <span class="font-semibold mr-2 text-left flex-auto">Heres a success alert</span>            
+</div>
+</div> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_alert(text = 'Heres a warning alert', badge = 'Warning', color = 'orange')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="text-center py-4 lg:px-4">
+<div class="p-2 bg-orange-800 items-center text-orange-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+    <span class="flex rounded-full bg-orange-500 uppercase px-2 py-1 text-xs font-bold mr-3">Warning</span>
+    <span class="font-semibold mr-2 text-left flex-auto">Heres a warning alert</span>            
+</div>
+</div> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_alert(text = 'Heres an error alert', badge = 'Delete?', color = 'red')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="text-center py-4 lg:px-4">
+<div class="p-2 bg-red-800 items-center text-red-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+    <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Delete?</span>
+    <span class="font-semibold mr-2 text-left flex-auto">Heres an error alert</span>            
+</div>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=section></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Section</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Creates an invisible element that can be used to link to in the sidebar</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    id
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    ID for the section. This is what will appear in the link as /page#id
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name of the section. This is what will appear in the navigation bar
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    level
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Integer
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    1
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Level of the section. This is the indentation that will appear in the navigation bar
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">page.add_section(id = 'section1', name = 'Sample Section 1')</code>
+    </div>
+</div>
+<span id=section1></span>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">page.add_section(id = 'section2', name = 'Sample Section 2', level = 2)</code>
+    </div>
+</div>
+<span id=section2></span>
+<hr class="my-5 border-gray-300 w-full">
+<span id=Form></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Form</p>
+<span id=form></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a form</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    action
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    ?
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Action for the form. This is the page that the form will submit to. Defaults to the current page
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    method
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    GET
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Method for the form (i.e. GET, POST)
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of Component of the form
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formtext></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form Text</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a form</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the form text
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name for the form text
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    placeholder
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Placeholder
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Value if you want to pre-populate
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formtext(label = 'Name', name = 'name', placeholder = 'John Doe')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mb-6">
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+    <input type="text" name="name" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" required>
+</div> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formtext(label = 'Email', name = 'email', placeholder = 'test@test.com')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mb-6">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+    <input type="text" name="email" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="test@test.com" required>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formemail></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form Email</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a form email</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Your E-mail
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the form email
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    email
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name for the form email
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    placeholder
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    user@example.com
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Placeholder
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formemail(label = 'Email', name = 'email', placeholder = 'test@pycob.com')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mb-6">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+    <input type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="test@pycob.com" required>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formpassword></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form Password</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a form password</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Password
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the form password
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    password
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name for the form password
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    placeholder
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    password
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Placeholder
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formpassword(label = 'Password', name = 'password', placeholder = '********')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mb-6">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+    <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********" required>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formselect></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form Select</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a form select</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the form select
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name for the form select
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    options
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Untyped
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Options for the form select
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Selected value
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formselect(label = 'Select', name = 'select', options = [{'value': 'US', 'label': 'United States'}, {'value': 'CA', 'label': 'Canada'}])</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mb-6">
+    <label for="select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select</label>
+    <select id="select" name="select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="" selected disabled hidden>Select an option</option>
+<option value="US" >United States</option>
+<option value="CA" >Canada</option> 
+    </select>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formhidden></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form Hidden Field</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a hidden field on a form. This is useful for carrying state between pages without having to store data in the database.</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name for the form hidden
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Value for the form hidden
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">form.add_formhidden(name = 'hidden', value = 'hidden')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <form class="max-w-full" style="width: 500px" onsubmit="setLoading(this)" action="" method="GET">
+    <input type="hidden" name="hidden" value="hidden"> 
+</form> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formtextarea></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Text Area</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a text area</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Your Message
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the text area
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    name
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    message
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Name for the text area
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    placeholder
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Leave a comment...
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Placeholder
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Value if you want to pre-populate
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formtextarea(label = 'Message', name = 'message', placeholder = 'Your message')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="mb-6">
+    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
+    <textarea name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message"></textarea>
+</div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=formsubmit></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Form Submit</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a form submit button</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Submit
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the form submit button
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formsubmit(label = 'Submit')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> 
+    </div>
+</div>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">container.add_formsubmit(label = 'Save')</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=Table></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Table</p>
+<span id=rawtable></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Raw HTML Table</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table manually by constructing the table header, body, content, etc.. This is useful if you want to customize the table more than what the other table functions allow. Most of the time you'll use the other table functions instead of this one.</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#form" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    form
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to render in the table
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=tablehead></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Table Head</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table head</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#rawtable" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    rawtable
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to render in the table head
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=tablerow></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Table Row</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table row</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#rawtable" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    rawtable
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablehead" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablehead
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablebody" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablebody
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to render in the table row
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=tablecol></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Table Column</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table column</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablehead" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablehead
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablerow" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablerow
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to render in the table column
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=tablebody></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Table Body</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table body</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#rawtable" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    rawtable
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components to render in the table body
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=tablecell></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Table Cell</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table cell</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablehead" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablehead
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablerow" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablerow
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    String to render in the table cell
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=tablecellheader></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Table Cell Header</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a table cell header</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablehead" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablehead
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#tablerow" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    tablerow
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    String to render in the table cell header
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=Advanced></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Advanced</p>
+<span id=pandastable></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Pandas Table</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a pandas table</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    dataframe
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Untyped
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Dataframe to render
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    hide_fields
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    List
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of fields to hide
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    action_buttons
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Row actions to render
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">&gt;&gt;&gt;</code>
+        <code class="text-white" style="white-space: break-spaces">card.add_pandastable(dataframe = df)</code>
+    </div>
+</div>
+<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+    <div class="flex flex-col h-full ">
+        <div class="p-8"><div class="relative overflow-x-auto shadow-md sm:rounded-lg"><table class="w-full text-sm text-left text-gray-500 dark:text-gray-400"><thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"><tr><th scope="col" class="px-6 py-3">calories</th><th scope="col" class="px-6 py-3">duration</th><th scope="col" class="px-6 py-3">large_numbers</th></tr></thead><tbody><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4">420</td><td class="px-6 py-4">50</td><td class="px-6 py-4">9,000</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">380</td><td class="px-6 py-4">40</td><td class="px-6 py-4">9.0 million</td></tr><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4">390</td><td class="px-6 py-4">45</td><td class="px-6 py-4">9.0 billion</td></tr></tbody></table></div></div> 
+    </div>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=datagrid></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Data Grid</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a data grid</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    dataframe
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Untyped
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Dataframe to render
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    action_buttons
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Row actions to render
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=emgithub></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Github Embed</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a block of code from a github URL</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL of the GitHub file to be rendered
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Example</p>
+<hr class="my-5 border-gray-300 w-full">
+<span id=Internal></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Internal</p>
+<span id=page></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Page</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">A page is the top level component of a website. It contains the navbar, the main content, and the footer.</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    The SEO title of the page
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    description
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    The SEO description of the page
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    image
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    The SEO image of the page
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    additional_head
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Additional HTML to be added to the head of the page
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    The components to be rendered on the page
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=selectoption></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Select Option</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a select option</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#formselect" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    formselect
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the select option
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Value for the select option
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    selected
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Use 'selected' if this is selected
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=rowaction></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Row Action</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a row action</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the button. Use {col_name} to use a column value. If you use just the column value, the button will replace that column. If you use a static string, a column will be added for the button.
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL to navigate to when the button is clicked. Use {col_name} to include the column value in the link
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    classes
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Classes to add to the button
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    open_in_new_window
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional Boolean
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    True
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Open the link in a new window
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=navbar></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Navbar</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a navbar</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Title of the navbar
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    logo
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL for the logo of the navbar
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    button_label
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Sign In
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Label for the button
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    button_url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    /auth/login
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL for the button
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    button_svg
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    SVG for the button
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of links for the navbar
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=footer></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Footer</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a footer</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Title of the footer
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    subtitle
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Subtitle of the footer
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    logo
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL for the logo of the footer
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of category components for the footer
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=footercategory></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Footer Category</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a category in the footer</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#footer" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    footer
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Title of the category
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of Footer Link in the category
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=footerlink></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Footer Link</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a link in the footer</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#footercategory" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    footercategory
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Title of the link
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL of the link
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=sidebar></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Sidebar</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a sidebar</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of Component of the sidebar
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=sidebarcategory></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Sidebar Category</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a category in the sidebar</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#sidebar" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    sidebar
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Title of the category
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    components
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Components
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    List of Sidebar Link in the category
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=sidebarlink></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Sidebar Link</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a link in the sidebar</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#sidebarcategory" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    sidebarcategory
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    title
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Title of the link
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL of the link
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=codeeditor></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Code Editor</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Renders a code editor</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    value
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Code to be rendered
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    language
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    Optional String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    python
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Language mode for syntax highlighting
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<span id=scriptstatus></span>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-4xl ">Script Status</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Shows the status of a script execution and redirects to a new page when complete</p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-3xl ">Use With</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#page" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    page
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#card" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    card
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="#container" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    container
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"></p>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-lg sm:text-2xl ">Input</p>
+<div class="relative overflow-x-auto shadow-md mb-5 sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="bg-gray-50 dark:bg-gray-800">
+    <tr>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Name
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Type
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Default Value
+</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    Description
+</th> 
+    </tr>
+</thead>
+<tbody>
+    <tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    job_id
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    Job id to check the status of
+</td> 
+</tr>
+<tr class="border-t border-gray-200 dark:border-gray-700">
+    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+    redirect_url
+</th>
+<td class="px-6 py-4 whitespace-nowrap">
+    String
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+    URL to redirect to when the script is complete
+</td> 
+</tr> 
+</tbody> 
+    </table>
+</div>
+<hr class="my-5 border-gray-300 w-full">
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Python Source</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">This is the source code for the current page.</p>
+
+    <script src="https://emgithub.com/embed-v2.js?target=https%3A//github.com/pycob/pyvibe/blob/main/generator/docs/component_reference.py&style=vs2015&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on&fetchFromJsDelivr=on"></script>
+     
+        </div>
+    </body>
+</html>

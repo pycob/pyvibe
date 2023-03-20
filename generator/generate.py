@@ -9,7 +9,9 @@ for file in files:
     print("Importing file: " + file)
     exec(f"from docs import {file}")
 
+    exec(f"{file}.page.add_header('Python Source')")
+    exec(f"{file}.page.add_text('This is the source code for the current page.')")
+    exec(f"{file}.page.add_emgithub('https://github.com/pycob/pyvibe/blob/main/generator/docs/{file}.py')")
+
     print(f"Writing to {file}.html")
     exec(f"with open('docs/{file}.html', 'w') as f: f.write({file}.page.to_html())")    
-
-breakpoint()

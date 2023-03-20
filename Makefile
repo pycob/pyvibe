@@ -5,6 +5,10 @@ all: venv docs/index.html
 
 venv: $(VENV)/bin/activate
 
+flask:
+	./$(VENV)/bin/pip install flask
+	./$(VENV)/bin/python3 integration_tests/flask_test.py
+
 docs/index.html: src/pyvibe/__init.py___ generator/generate.py
 	./$(VENV)/bin/pip install pandas
 	./$(VENV)/bin/python3 generator/generate.py
@@ -27,4 +31,4 @@ clean:
 	rm -rf $(VENV)
 	find . -type f -name '*.pyc' -delete
 
-.PHONY: all clean
+.PHONY: all clean flask

@@ -11,8 +11,8 @@
     <meta name="msapplication-config" content="https://cdn.pycob.com/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive PyVibe Tutorial</title>
-    <meta property="og:title" content="Interactive PyVibe Tutorial">
+    <title>Flask</title>
+    <meta property="og:title" content="Flask">
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     
@@ -137,145 +137,47 @@
     </div>
   </nav>
         <div id="page-container" class="container px-5 my-5 mx-auto">
-            <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Welcome to the PyVibe Tutorial!</p>
-<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">This is a work in progress.</p>
+            <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Flask</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">PyVibe can be used with Flask. This is a simple example of how to use PyVibe with Flask.</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">First, create a new file called <code>app.py</code> and add the following code:</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500"></code>
+        <code class="text-white" style="white-space: break-spaces">from flask import Flask
+import pyvibe as pv
 
+app = Flask(__name__)
 
-<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-    <li class="mr-2">
-        <button aria-current="page" class="inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Card</a>
-    </li>
-    <li class="mr-2">
-        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Charts</a>
-    </li>
-    <li class="mr-2">
-        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Tables</a>
-    </li>
-    <li class="mr-2">
-        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Forms</a>
-    </li>
-</ul>
+@app.route('/')
+def index():
+    page = pv.Page('Home')
+    page.add_header('Hello World')
+    return page.to_html()
 
-
-<style type="text/css" media="screen">
-#editorContainer {
-    // width: calc( 100vw - 40px );
-    height: 500px;
-    max-height: calc( 80vh - 60px );
-    position: relative;
-    background-color: red;
-}
-#editor { 
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-</style>
-
-<div id="editorContainer">
-    <div id="editor">with page.add_card() as card:
-    card.add_header("Hello World")
-    card.add_text("This content was generated with Python (from the browser)!")
-</div> 
+if __name__ == '__main__':
+    app.run(debug=True)
+</code>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/gh/ajaxorg/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/python");
-
-    // const savedCode = localStorage.getItem('code');
-
-    // if (savedCode) {
-    //     editor.setValue(savedCode);
-    // }
-</script>
-
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>  
-    <script defer type="text/javascript">
-    var loadingButton = `
-        <button disabled class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Running...
-            </span>
-        </button>`
-
-    var runButton = `
-        <button onclick="runCode()" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Run
-            </span>
-        </button>`  
-
-      var pyodide;
-
-      async function main(){
-        pyodide = await loadPyodide();
-        await pyodide.loadPackage("micropip");
-        const micropip = pyodide.pyimport("micropip");
-        await micropip.install("pyvibe");
-        await micropip.install("plotly");
-        await micropip.install("pandas");
-
-        pyodide.runPython(`import pagebuilder as pv`);        
-        
-        document.getElementById("runButton").innerHTML = runButton;
-      }
-      main();
-
-      function runCode() {
-        document.getElementById("results").innerHTML = loadingButton;
-        pyodide.runPython(`page = pv.ContainerComponent()`);
-        pyodide.runPython(editor.getValue());
-
-        pyodide.runPython(`results = page.to_html()`);
-
-        results = pyodide.globals.get("results");
-
-        // document.getElementById("results").innerHTML = results;
-        setInnerHTML(document.getElementById("results"), results);
-
-        document.getElementById("runButton").innerHTML = runButton;
-
-        document.getElementById("results").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
-      }
-      
-      function setInnerHTML(elm, html) {
-  elm.innerHTML = html;
-  
-  Array.from(elm.querySelectorAll("script"))
-    .forEach( oldScriptEl => {
-      const newScriptEl = document.createElement("script");
-      
-      Array.from(oldScriptEl.attributes).forEach( attr => {
-        newScriptEl.setAttribute(attr.name, attr.value) 
-      });
-      
-      const scriptText = document.createTextNode(oldScriptEl.innerHTML);
-      newScriptEl.appendChild(scriptText);
-      
-      oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
-  });
-}
-
-    </script>
-
-<span id="runButton">
-<button disabled class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Preparing Pyodide...
-            </span>
-        </button>
-</span>
-<div id='results' class='border-dashed border-2 border-sky-500'></div>
-<p class="text-gray-500 dark:text-gray-400 ">
-    <a href="flask.html" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    Learn how to serve from Flask
-    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
-</p> 
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Then, run the following command in your terminal:</p>
+<div class="mx-auto my-10 max-w-3xl">
+    <div class="flex h-11 w-full items-center justify-start space-x-1.5 rounded-t-lg bg-gray-900 px-3">
+        <span class="h-3 w-3 rounded-full bg-red-400"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-400"></span>
+        <span class="h-3 w-3 rounded-full bg-green-400"></span>
+        <code class="pl-5 text-lime-500"></code>
+    </div>
+    <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+        <code class="text-gray-500">%</code>
+        <code class="text-white" style="white-space: break-spaces">python app.py</code>
+    </div>
+</div> 
         </div>
         <footer class="text-gray-600 body-font">
     <div class="container px-5 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">

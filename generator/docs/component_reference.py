@@ -2,6 +2,7 @@ import pyvibe as pv
 import os
 import json
 import pandas as pd
+from .common.components import navbar, footer
 
 def argument_value_with_quotes(argument_type, argument_value) -> str:
     if argument_value is None:
@@ -37,7 +38,7 @@ def example_to_pyvibe_code(element_type, example, attachableTo, arguments) -> st
 with open(os.path.join("./spec/", 'spec.json')) as f:
     spec = json.load(f)
 
-page = pv.Page('Component Reference')
+page = pv.Page('Component Reference', navbar=navbar, footer=footer)
 
 category_order = [
     'Basic HTML',

@@ -1,9 +1,29 @@
 import pyvibe as pv
+from .common.components import navbar, footer
 
-page = pv.Page('Interactive PyVibe Tutorial')
+page = pv.Page('Interactive PyVibe Tutorial', navbar=navbar, footer=footer)
 
 page.add_header("Welcome to the PyVibe Tutorial!")
 page.add_text("This is a work in progress.")
+
+page.add_html("""
+
+<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <li class="mr-2">
+        <button aria-current="page" class="inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Card</a>
+    </li>
+    <li class="mr-2">
+        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Charts</a>
+    </li>
+    <li class="mr-2">
+        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Tables</a>
+    </li>
+    <li class="mr-2">
+        <button class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Forms</a>
+    </li>
+</ul>
+
+""")
 
 page.add_codeeditor("""with page.add_card() as card:
     card.add_header("Hello World")
@@ -34,6 +54,8 @@ page.add_html("""
         await pyodide.loadPackage("micropip");
         const micropip = pyodide.pyimport("micropip");
         await micropip.install("pyvibe");
+        await micropip.install("plotly");
+        await micropip.install("pandas");
 
         pyodide.runPython(`import pagebuilder as pv`);        
         
@@ -50,10 +72,32 @@ page.add_html("""
 
         results = pyodide.globals.get("results");
 
-        document.getElementById("results").innerHTML = results;
+        // document.getElementById("results").innerHTML = results;
+        setInnerHTML(document.getElementById("results"), results);
 
         document.getElementById("runButton").innerHTML = runButton;
+
+        document.getElementById("results").scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
       }
+      
+      function setInnerHTML(elm, html) {
+  elm.innerHTML = html;
+  
+  Array.from(elm.querySelectorAll("script"))
+    .forEach( oldScriptEl => {
+      const newScriptEl = document.createElement("script");
+      
+      Array.from(oldScriptEl.attributes).forEach( attr => {
+        newScriptEl.setAttribute(attr.name, attr.value) 
+      });
+      
+      const scriptText = document.createTextNode(oldScriptEl.innerHTML);
+      newScriptEl.appendChild(scriptText);
+      
+      oldScriptEl.parentNode.replaceChild(newScriptEl, oldScriptEl);
+  });
+}
+
     </script>
 """)
               
@@ -67,17 +111,4 @@ page.add_html("""<span id="runButton">
 
 page.add_html("<div id='results' class='border-dashed border-2 border-sky-500'></div>")
 
-page.add_text("TODO: Tutorial here")
-
-page.add_header("Page")
-
-page.add_header("Dataframes")
-
-page.add_header("Charts")
-
-page.add_header("Tables")
-
-page.add_header("Forms")
-
-page.add_header("Serving from Flask")
-
+page.add_link("Learn how to serve from Flask", "flask.html")

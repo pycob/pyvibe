@@ -1968,7 +1968,7 @@ struct TableBodyElement: Element {
 struct PandasTableElement: Element {
     let elementType: ElementType = .pandastable
     let name: String = "Pandas Table"
-    let attachableTo: [ElementType] = [.page, .card]
+    let attachableTo: [ElementType] = [.page, .card, .container]
     let category: DocumentationCategory = .advanced
     let description: String = "Renders a pandas table"
     let arguments: [Argument] = [

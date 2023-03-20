@@ -846,6 +846,22 @@ class ContainerComponent(Component):
     return new_component
     
 
+
+  def add_pandastable(self, dataframe, hide_fields: list = [], action_buttons: list = None):
+    """Renders a pandas table
+
+    Args:
+        dataframe: Dataframe to render
+        hide_fields (list): List of fields to hide
+        action_buttons (list): Row actions to render
+    
+    Returns:
+        PandastableComponent: The new component
+    """
+    advanced_add_pandastable(self, dataframe, hide_fields, action_buttons)
+    return self
+    
+
   def add_plotlyfigure(self, fig, id: str = '') -> PlotlyfigureComponent:
     """Renders a plotly figure
 

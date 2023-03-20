@@ -1247,7 +1247,8 @@
   "elementType" : "pandastable",
   "attachableTo" : [
     "page",
-    "card"
+    "card",
+    "container"
   ],
   "exampleCode" : [
     {

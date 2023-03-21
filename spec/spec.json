@@ -1,5 +1,5 @@
 [{
-  "category" : "Internal",
+  "category" : "Page",
   "arguments" : [
     {
       "name" : "title",
@@ -37,11 +37,18 @@
       "description" : "Footer for the page"
     },
     {
+      "defaultValue" : "None",
+      "name" : "sidebar",
+      "type" : "Sidebar",
+      "description" : "Sidebar for the page"
+    },
+    {
       "name" : "components",
       "type" : "Components",
-      "description" : "The components to be rendered on the page"
+      "description" : "The components to be rendered on the page. You don't normally need to specify this since you can use page.add_ methods"
     }
   ],
+  "postInitPythonFunc" : "if self.sidebar is None:\n    self.sidebar = HtmlComponent('')",
   "elementType" : "page",
   "attachableTo" : [
 
@@ -957,7 +964,7 @@
   "name" : "Form Hidden Field"
 },
 {
-  "category" : "Internal",
+  "category" : "Form",
   "arguments" : [
     {
       "name" : "label",
@@ -1361,7 +1368,7 @@
   "name" : "Row Action"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "title",
@@ -1410,7 +1417,7 @@
   "name" : "Navbar"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "text",
@@ -1440,7 +1447,7 @@
   "name" : "Navbar Link"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "defaultValue" : "",
@@ -1477,7 +1484,7 @@
   "name" : "Footer"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "title",
@@ -1501,7 +1508,7 @@
   "name" : "Footer Category"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "title",
@@ -1525,7 +1532,7 @@
   "name" : "Footer Link"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "components",
@@ -1544,7 +1551,7 @@
   "name" : "Sidebar"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "title",
@@ -1568,7 +1575,7 @@
   "name" : "Sidebar Category"
 },
 {
-  "category" : "Internal",
+  "category" : "Advanced Layout",
   "arguments" : [
     {
       "name" : "title",

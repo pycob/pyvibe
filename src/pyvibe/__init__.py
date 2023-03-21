@@ -5,9 +5,7 @@ import uuid
 
 
 class AlertComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_alert` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_alert` method of the parent component.
   """
   def __init__(self, text: str, badge: str = '', color: str = 'indigo'):    
     self.text = text
@@ -30,9 +28,7 @@ class AlertComponent(Component):
 </div>'''
 
 class CardComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_card` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_card` method of the parent component.
   """
   def __init__(self, center_content: bool = False, classes: str = '', components: list = None):    
     self.center_content = center_content
@@ -449,9 +445,7 @@ class CardComponent(Component):
     
 
 class CodeComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_code` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_code` method of the parent component.
   """
   def __init__(self, value: str, header: str = '', prefix: str = '>>>'):    
     self.value = value
@@ -481,9 +475,7 @@ class CodeComponent(Component):
 </div>'''
 
 class CodeeditorComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_codeeditor` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_codeeditor` method of the parent component.
   """
   def __init__(self, value: str, language: str = 'python'):    
     self.value = value
@@ -531,9 +523,7 @@ class CodeeditorComponent(Component):
 </script>'''
 
 class ContainerComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_container` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_container` method of the parent component.
   """
   def __init__(self, grid_columns: int = None, classes: str = '', components: list = None):    
     self.grid_columns = grid_columns
@@ -893,9 +883,7 @@ class ContainerComponent(Component):
     
 
 class DividerComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_divider` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_divider` method of the parent component.
   """
   def __init__(self):    
     pass
@@ -911,9 +899,7 @@ class DividerComponent(Component):
     return '''<hr class="my-5 border-gray-300 w-full">'''
 
 class Footer(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_footer` method of the parent component.
+  """Renders a footer
   """
   def __init__(self, title: str = '', subtitle: str = '', logo: str = '', components: list = None):    
     self.title = title
@@ -965,9 +951,7 @@ class Footer(Component):
     
 
 class FootercategoryComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_footercategory` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_footercategory` method of the parent component.
   """
   def __init__(self, title: str, components: list = None):    
     self.title = title
@@ -1012,9 +996,7 @@ class FootercategoryComponent(Component):
     
 
 class FooterlinkComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_footerlink` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_footerlink` method of the parent component.
   """
   def __init__(self, title: str, url: str):    
     self.title = title
@@ -1031,9 +1013,7 @@ class FooterlinkComponent(Component):
     return '''<li><a href="''' + self.url + '''" class="text-gray-600 hover:text-gray-800 dark:hover:text-white">''' + self.title + '''</a></li>'''
 
 class FormComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_form` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_form` method of the parent component.
   """
   def __init__(self, action: str = '?', method: str = 'GET', components: list = None):    
     self.action = action
@@ -1281,9 +1261,7 @@ class FormComponent(Component):
     
 
 class FormemailComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formemail` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formemail` method of the parent component.
   """
   def __init__(self, label: str = 'Your E-mail', name: str = 'email', placeholder: str = 'user@example.com'):    
     self.label = label
@@ -1304,9 +1282,7 @@ class FormemailComponent(Component):
 </div>'''
 
 class FormhiddenComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formhidden` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formhidden` method of the parent component.
   """
   def __init__(self, name: str, value: str):    
     self.name = name
@@ -1323,9 +1299,7 @@ class FormhiddenComponent(Component):
     return '''<input type="hidden" name="''' + self.name + '''" value="''' + self.value + '''">'''
 
 class FormpasswordComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formpassword` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formpassword` method of the parent component.
   """
   def __init__(self, label: str = 'Password', name: str = 'password', placeholder: str = 'password'):    
     self.label = label
@@ -1346,9 +1320,7 @@ class FormpasswordComponent(Component):
 </div>'''
 
 class FormselectComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formselect` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formselect` method of the parent component.
   """
   def __init__(self, label: str, name: str, options, value: str = ''):    
     self.label = label
@@ -1403,9 +1375,7 @@ class FormselectComponent(Component):
     
 
 class FormsubmitComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formsubmit` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formsubmit` method of the parent component.
   """
   def __init__(self, label: str = 'Submit'):    
     self.label = label
@@ -1421,9 +1391,7 @@ class FormsubmitComponent(Component):
     return '''<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">''' + self.label + '''</button>'''
 
 class FormtextComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formtext` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formtext` method of the parent component.
   """
   def __init__(self, label: str, name: str, placeholder: str = '', value: str = ''):    
     self.label = label
@@ -1445,9 +1413,7 @@ class FormtextComponent(Component):
 </div>'''
 
 class FormtextareaComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_formtextarea` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_formtextarea` method of the parent component.
   """
   def __init__(self, label: str = 'Your Message', name: str = 'message', placeholder: str = 'Leave a comment...', value: str = ''):    
     self.label = label
@@ -1469,9 +1435,7 @@ class FormtextareaComponent(Component):
 </div>'''
 
 class HeaderComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_header` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_header` method of the parent component.
   """
   def __init__(self, text: str, size: int = 5, classes: str = ''):    
     self.text = text
@@ -1508,9 +1472,7 @@ class HeaderComponent(Component):
     return '''<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white ''' + self.classes + ''' ">''' + self.text + '''</p>'''
 
 class HtmlComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_html` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_html` method of the parent component.
   """
   def __init__(self, value: str):    
     self.value = value
@@ -1526,9 +1488,7 @@ class HtmlComponent(Component):
     return '''''' + self.value + ''''''
 
 class ImageComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_image` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_image` method of the parent component.
   """
   def __init__(self, url: str, alt: str, classes: str = ''):    
     self.url = url
@@ -1546,9 +1506,7 @@ class ImageComponent(Component):
     return '''<img class="max-w-fit h-auto rounded-lg ''' + self.classes + ''' " src="''' + self.url + '''" alt="''' + self.alt + '''">'''
 
 class LinkComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_link` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_link` method of the parent component.
   """
   def __init__(self, text: str, url: str, classes: str = ''):    
     self.text = text
@@ -1571,9 +1529,7 @@ class LinkComponent(Component):
 </p>'''
 
 class ListComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_list` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_list` method of the parent component.
   """
   def __init__(self, show_dots: bool = True, classes: str = '', components: list = None):    
     self.show_dots = show_dots
@@ -1621,9 +1577,7 @@ class ListComponent(Component):
     
 
 class ListitemComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_listitem` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_listitem` method of the parent component.
   """
   def __init__(self, value: str, classes: str = '', svg: str = '', is_checked: bool = None):    
     self.value = value
@@ -1649,9 +1603,7 @@ class ListitemComponent(Component):
 </li>'''
 
 class Navbar(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_navbar` method of the parent component.
+  """Renders a navbar
   """
   def __init__(self, title: str, logo: str = 'https://cdn.pycob.com/pyvibe.png', button_label: str = 'Sign In', button_url: str = '/auth/login', button_svg: str = '', components: list = None):    
     self.title = title
@@ -1767,9 +1719,7 @@ class Navbar(Component):
     
 
 class NavbarlinkComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_navbarlink` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_navbarlink` method of the parent component.
   """
   def __init__(self, text: str, url: str, classes: str = ''):    
     self.text = text
@@ -1787,20 +1737,20 @@ class NavbarlinkComponent(Component):
     return '''<a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 ''' + self.classes + '''" href="''' + self.url + '''">''' + self.text + '''</a>'''
 
 class Page(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_page` method of the parent component.
+  """A page is the top level component of a website. It contains the navbar, the main content, and the footer.
   """
-  def __init__(self, title: str = '', description: str = '', image: str = '', additional_head: str = '', navbar: Navbar = Navbar(title='PyVibe App'), footer: Footer = Footer(title='Made with PyVibe', logo='https://cdn.pycob.com/pyvibe.png'), components: list = None):    
+  def __init__(self, title: str = '', description: str = '', image: str = '', additional_head: str = '', navbar: Navbar = Navbar(title='PyVibe App'), footer: Footer = Footer(title='Made with PyVibe', logo='https://cdn.pycob.com/pyvibe.png'), sidebar: Sidebar = None, components: list = None):    
     self.title = title
     self.description = description
     self.image = image
     self.additional_head = additional_head
     self.navbar = navbar
     self.footer = footer
+    self.sidebar = sidebar
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
     self.components = components or []
-    
+    if self.sidebar is None:
+        self.sidebar = HtmlComponent('')
 
   def __enter__(self):
     return self
@@ -1910,8 +1860,11 @@ class Page(Component):
     </head>
     <body class="flex flex-col h-screen dark:bg-gray-900 ">
         ''' + self.navbar.to_html() + '''
-        <div id="page-container" class="container px-5 my-5 mx-auto">
-            ''' + '\n'.join(map(lambda x: x.to_html(), self.components)) + ''' 
+        <div class="flex">
+            ''' + self.sidebar.to_html() + '''
+            <div id="page-container" class="container px-5 my-5 mx-auto">
+                ''' + '\n'.join(map(lambda x: x.to_html(), self.components)) + ''' 
+            </div>
         </div>
         ''' + self.footer.to_html() + '''
     </body>
@@ -2246,9 +2199,7 @@ class Page(Component):
     
 
 class PlainlinkComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_plainlink` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_plainlink` method of the parent component.
   """
   def __init__(self, text: str, url: str, classes: str = ''):    
     self.text = text
@@ -2266,9 +2217,7 @@ class PlainlinkComponent(Component):
     return '''<a class="''' + self.classes + '''" href="''' + self.url + '''">''' + self.text + '''</a>'''
 
 class PlotlyfigureComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_plotlyfigure` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_plotlyfigure` method of the parent component.
   """
   def __init__(self, fig, id: str = ''):    
     self.fig = fig
@@ -2291,9 +2240,7 @@ class PlotlyfigureComponent(Component):
 </script>'''
 
 class RawtableComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_rawtable` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_rawtable` method of the parent component.
   """
   def __init__(self, components: list = None):    
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
@@ -2363,9 +2310,7 @@ class RawtableComponent(Component):
     
 
 class Rowaction(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_rowaction` method of the parent component.
+  """Renders a row action
   """
   def __init__(self, label: str, url: str, classes: str = '', open_in_new_window: bool = True):    
     self.label = label
@@ -2384,9 +2329,7 @@ class Rowaction(Component):
     return '''TODO: Internal Component'''
 
 class ScriptstatusComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_scriptstatus` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_scriptstatus` method of the parent component.
   """
   def __init__(self, job_id: str, redirect_url: str):    
     self.job_id = job_id
@@ -2431,9 +2374,7 @@ class ScriptstatusComponent(Component):
 </div>'''
 
 class SectionComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_section` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_section` method of the parent component.
   """
   def __init__(self, id: str, name: str, level: int = 1):    
     self.id = id
@@ -2451,9 +2392,7 @@ class SectionComponent(Component):
     return '''<span id=''' + self.id + '''></span>'''
 
 class SelectoptionComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_selectoption` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_selectoption` method of the parent component.
   """
   def __init__(self, label: str, value: str, selected: str = ''):    
     self.label = label
@@ -2471,9 +2410,7 @@ class SelectoptionComponent(Component):
     return '''<option value="''' + self.value + '''" ''' + self.selected + '''>''' + self.label + '''</option>'''
 
 class Sidebar(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_sidebar` method of the parent component.
+  """Renders a sidebar
   """
   def __init__(self, components: list = None):    
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
@@ -2538,9 +2475,7 @@ class Sidebar(Component):
     
 
 class SidebarcategoryComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_sidebarcategory` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_sidebarcategory` method of the parent component.
   """
   def __init__(self, title: str, components: list = None):    
     self.title = title
@@ -2585,9 +2520,7 @@ class SidebarcategoryComponent(Component):
     
 
 class SidebarlinkComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_sidebarlink` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_sidebarlink` method of the parent component.
   """
   def __init__(self, title: str, url: str):    
     self.title = title
@@ -2604,9 +2537,7 @@ class SidebarlinkComponent(Component):
     return '''<li><a href="''' + self.url + '''" onclick="event.preventDefault(); smoothScrollTo(this)" class="text-gray-900 dark:text-white hover:text-gray-800">''' + self.title + '''</a></li>'''
 
 class TablebodyComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_tablebody` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_tablebody` method of the parent component.
   """
   def __init__(self, components: list = None):    
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
@@ -2646,9 +2577,7 @@ class TablebodyComponent(Component):
     
 
 class TablecellComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_tablecell` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_tablecell` method of the parent component.
   """
   def __init__(self, value: str):    
     self.value = value
@@ -2666,9 +2595,7 @@ class TablecellComponent(Component):
 </td>'''
 
 class TablecellheaderComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_tablecellheader` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_tablecellheader` method of the parent component.
   """
   def __init__(self, value: str):    
     self.value = value
@@ -2686,9 +2613,7 @@ class TablecellheaderComponent(Component):
 </th>'''
 
 class TablecolComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_tablecol` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_tablecol` method of the parent component.
   """
   def __init__(self, components: list = None):    
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
@@ -2714,9 +2639,7 @@ class TablecolComponent(Component):
     self.components.append(component)
     return self
 class TableheadComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_tablehead` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_tablehead` method of the parent component.
   """
   def __init__(self, components: list = None):    
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
@@ -2800,9 +2723,7 @@ class TableheadComponent(Component):
     
 
 class TablerowComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_tablerow` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_tablerow` method of the parent component.
   """
   def __init__(self, components: list = None):    
     # https://stackoverflow.com/questions/4841782/python-constructor-and-default-value
@@ -2870,9 +2791,7 @@ class TablerowComponent(Component):
     
 
 class TextComponent(Component):
-  """You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_text` method of the parent component.
+  """You don't normally need to invoke this constructor directly. Instead, use the `.add_text` method of the parent component.
   """
   def __init__(self, value: str):    
     self.value = value

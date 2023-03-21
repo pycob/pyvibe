@@ -33,8 +33,7 @@ page.add_text("Fundamentally, PyVibe returns an HTML string that can be used wit
 page.add_text("TODO: Link to examples for each of these")
 with page.add_list() as list:
     list.add_listitem("<b>Static Pages</b>: Like the one you're viewing now", is_checked=True)
-    list.add_listitem("<b>Flask</b>: Inside a Flask function", is_checked=True)
-    list.add_listitem("<b>Django</b>: ", is_checked=True)
+    list.add_listitem("<b><a href='flask.html'>Flask</a></b>: Inside a Flask function", is_checked=True)
     list.add_listitem("<b>Pyodide</b>: For dynamic client-side rendered pages", is_checked=True)
 
 page.add_text("")
@@ -44,7 +43,7 @@ page.add_text("TODO: Gallery here")
 
 page.add_header("Designed for Autocomplete", 3)
 page.add_text("PyVibe is designed to be used with autocomplete. This means that you can type <code>page.add_</code> and autocomplete will show you all the components that you can add to your page along with documentation about the component.")
-page.add_image("./img/autocomplete.png", "Autocomplete")
+page.add_html('<img class="rounded-lg" src="./img/autocomplete.png" alt="Autocomplete">')
 
 page.add_header("Themes", 3)
 page.add_text('PyVibe is meant to be a generic framework. While the default theme uses <a href="https://flowbite.com/" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Flowbite</a>, which are components that use <a href="https://tailwindcss.com/" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">TailwindCSS</a>, we envision including many themes and CSS frameworks in the future.')

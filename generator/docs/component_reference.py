@@ -38,20 +38,22 @@ def example_to_pyvibe_code(element_type, example, attachableTo, arguments) -> st
 with open(os.path.join("./spec/", 'spec.json')) as f:
     spec = json.load(f)
 
-page = pv.Page('Component Reference', navbar=navbar, footer=footer)
+sidebar = pv.Sidebar()
+
+page = pv.Page('Component Reference', navbar=navbar, footer=footer, sidebar=sidebar)
 
 category_order = [
+    'Page',
     'Basic HTML',
     'Layout',
     'Form',
     'Table',
     'Advanced',
+    'Advanced Layout',
     'Internal',
 ]
 
 categories = {}
-
-# sidebar = page.add_sidebar()
 
 for element in spec:
     category = element['category']
@@ -63,23 +65,26 @@ for element in spec:
 
 for category in category_order:
     page.add_section(category, category)
-    # sidebar_category = sidebar.add_sidebarcategory(category)
+    sidebar_category = sidebar.add_sidebarcategory(category)
     page.add_header(category, 5)
 
     for element in categories[category]:
         page.add_section(element['elementType'], element['name'], level=2)
-        # sidebar_category.add_sidebarlink(element['name'], "#"+element['name'])
+        sidebar_category.add_sidebarlink(element['name'], "#"+element['elementType'])
         if element['elementType'] != 'page':
-            page.add_header(element['name'] + f" (<code>.add_{element['elementType']}</code>)", 4)
+            if len(element['attachableTo']) > 0:
+                page.add_header(element['name'] + f" (<code>.add_{element['elementType']}</code>)", 4)
+            else:
+                page.add_header(element['name'] + f" (<code>{element['elementType']} = {element['name']}(...)</code>)", 4)
         else:
             page.add_header(element['name'], 4)
         page.add_text(element['description'])
 
-        if 'attachableTo' in element:
+        if len(element['attachableTo']) > 0:
             page.add_header("Use With", 3)
 
         for attachableTo in element['attachableTo']:
-            page.add_link(attachableTo, "#"+attachableTo)
+            page.add_link(attachableTo + f"<code>.add_{element['elementType']}</code>", "#"+attachableTo)
 
         page.add_text("")
         page.add_header('Input', 2)
@@ -125,12 +130,14 @@ for category in category_order:
         #         page.add_html('<p><code>' + argument['name'] +'</code>: <b>' + argument['type'] + '</b>. ' + argument['description'] + ' </p>')
 
         if element['category'] != 'Internal':
-            page.add_header('Example', 2)
+            if len(element['exampleCode']) > 0:
+                page.add_header('Example', 2)
 
             for exampleWithSetup in element['exampleCode']:
                 example = exampleWithSetup['arguments']
 
                 if 'card' in element['attachableTo']:
+                    attachableTo = 'card'
                     page.add_code(example_to_pyvibe_code(element['elementType'], example, attachableTo, element['arguments']).replace('<', '&lt;').replace('>', '&gt;'))
                     card = pv.CardComponent()
                     if callable(getattr(card, "add_"+ element['elementType'], None)):
@@ -149,10 +156,12 @@ for category in category_order:
                         
                         page.add_component(card)
                 elif 'page' in element['attachableTo']:
+                    attachableTo = 'page'
                     page.add_code(example_to_pyvibe_code(element['elementType'], example, attachableTo, element['arguments']).replace('<', '&lt;').replace('>', '&gt;'))
                     if callable(getattr(page, "add_"+ element['elementType'], None)):
                         eval('page.add_' + element['elementType'] + '(' + example_to_arguments(example, element['arguments']) + ')')
                 elif 'form' in element['attachableTo']:
+                    attachableTo = 'form'
                     card = pv.CardComponent()
 
                     form = pv.FormComponent(action="")
@@ -164,6 +173,14 @@ for category in category_order:
                     card.add_component(form)
 
                     page.add_component(card)
+                else:
+                    if len(element['attachableTo']) > 0:
+                        attachableTo = element['attachableTo'][0]
+                        page.add_code(example_to_pyvibe_code(element['elementType'], example, attachableTo, element['arguments']).replace('<', '&lt;').replace('>', '&gt;'))
+                    else:
+                        # TODO: Need a function that doesn't require an attachableTo (i.e. call page = Page(...) etc)
+                        pass
+                        
 
         page.add_divider()
 

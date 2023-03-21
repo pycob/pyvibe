@@ -42,12 +42,11 @@ struct Generator {
                 pythonCode += ""
             } else {
                 let className: String = classElement.attachableTo.count > 0 ? "\(classElementTypeStr)Component" : "\(classElementTypeStr)"
+                let attachableDisclaimer: String = classElement.attachableTo.count > 0 ? "You don't normally need to invoke this constructor directly. Instead, use the `.add_\(attachment.key.rawValue)` method of the parent component." : classElement.description
 
             pythonCode += """
 class \(className)(Component):
-  \"""You don't normally need to invoke this constructor directly.
-  
-  Instead, use the `Page.add_\(attachment.key.rawValue)` method of the parent component.
+  \"""\(attachableDisclaimer)
   ""\"
   def __init__(\(classElement.arguments.pythonArgumentListWithDefaults())):    
     \(classElement.arguments.pythonArgumentListSelfAssignment())
@@ -323,8 +322,10 @@ enum ElementType: String, CaseIterable, Codable {
 }
 
 enum DocumentationCategory: String, CaseIterable, Codable {
+    case page = "Page"
     case basicHtml = "Basic HTML"
     case layout = "Layout"
+    case advancedLayout = "Advanced Layout"
     case form = "Form"
     case table = "Table"
     case charts = "Charts"
@@ -343,6 +344,7 @@ enum ArgumentType: String, CaseIterable, Codable {
     case list = "List"
     case navbar = "Navbar"
     case footer = "Footer"
+    case sidebar = "Sidebar"
     case untyped = "Untyped"
 }
 
@@ -368,6 +370,10 @@ struct Argument: Codable {
                 }
 
                 if type == .footer {
+                    return "''' + self.\(name).to_html() + '''"
+                }
+
+                if type == .sidebar {
                     return "''' + self.\(name).to_html() + '''"
                 }
 
@@ -434,6 +440,8 @@ extension Array where Element == Argument {
                     return "\($0.name): Navbar = \($0.defaultValue ?? "Navbar()")"
                 case .footer:
                     return "\($0.name): Footer = \($0.defaultValue ?? "Footer()")"
+                case .sidebar:
+                    return "\($0.name): Sidebar = \($0.defaultValue ?? "Sidebar()")"
                 case .untyped:
                     return "\($0.name)"
             }
@@ -493,6 +501,8 @@ extension Array where Element == Argument {
                     return "        \($0.name) (Navbar): \($0.description)"
                 case .footer:
                     return "        \($0.name) (Footer): \($0.description)"
+                case .sidebar:
+                    return "        \($0.name) (Sidebar): \($0.description)"
                 case .untyped:
                     return "        \($0.name): \($0.description)"
             }
@@ -535,7 +545,7 @@ struct PageElement: Element {
     let elementType: ElementType = .page
     let name: String = "Page"
     let attachableTo: [ElementType] = []
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .page
     let description: String = "A page is the top level component of a website. It contains the navbar, the main content, and the footer."
     let arguments: [Argument] = [
         Argument(name: "title", type: .optionalString, description: "The SEO title of the page"),
@@ -544,9 +554,13 @@ struct PageElement: Element {
         Argument(name: "additional_head", type: .optionalString, description: "Additional HTML to be added to the head of the page", defaultValue: ""),
         Argument(name: "navbar", type: .navbar, description: "Navbar for the page", defaultValue: "Navbar(title='PyVibe App')"),
         Argument(name: "footer", type: .footer, description: "Footer for the page", defaultValue: "Footer(title='Made with PyVibe', logo='https://cdn.pycob.com/pyvibe.png')"),
-        Argument(name: "components", type: .elements, description: "The components to be rendered on the page"),
+        Argument(name: "sidebar", type: .sidebar, description: "Sidebar for the page", defaultValue: "None"),
+        Argument(name: "components", type: .elements, description: "The components to be rendered on the page. You don't normally need to specify this since you can use page.add_ methods"),
     ]
-    let postInitPythonFunc: String? = nil
+    let postInitPythonFunc: String? = """
+    if self.sidebar is None:
+        self.sidebar = HtmlComponent('')
+    """
     let exampleCode: [ExampleCode] = [
         ExampleCode(setup: nil, arguments: 
         [
@@ -562,6 +576,7 @@ struct PageElement: Element {
         let navbar: String = arguments.get("navbar").templateVariable(in: renderingSystem)
         let footer: String = arguments.get("footer").templateVariable(in: renderingSystem)
         let components: String = arguments.get("components").templateVariable(in: renderingSystem)
+        let sidebar: String = arguments.get("sidebar").templateVariable(in: renderingSystem)
 
         return """
         <!doctype html>
@@ -665,8 +680,11 @@ struct PageElement: Element {
             </head>
             <body class="flex flex-col h-screen dark:bg-gray-900 ">
                 \(navbar)
-                <div id="page-container" class="container px-5 my-5 mx-auto">
-                    \(components)
+                <div class="flex">
+                    \(sidebar)
+                    <div id="page-container" class="container px-5 my-5 mx-auto">
+                        \(components)
+                    </div>
                 </div>
                 \(footer)
             </body>
@@ -1228,7 +1246,7 @@ struct NavbarElement: Element {
     let elementType: ElementType = .navbar
     let name: String = "Navbar"
     let attachableTo: [ElementType] = []
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a navbar"
     let postInitPythonFunc: String? = """
     if button_label == "Sign In" and button_svg == "":
@@ -1302,7 +1320,7 @@ struct NavbarLinkElement: Element {
     let elementType: ElementType = .navbarlink
     let name: String = "Navbar Link"
     let attachableTo: [ElementType] = [.navbar]
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a link in the navbar"
     let arguments: [Argument] = 
             [ Argument(name: "text", type: .string, description: "Text to be rendered"),
@@ -1325,7 +1343,7 @@ struct FooterElement: Element {
     let elementType: ElementType = .footer
     let name: String = "Footer"
     let attachableTo: [ElementType] = []
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a footer"
     let postInitPythonFunc: String? = nil
     let arguments: [Argument] = [
@@ -1364,7 +1382,7 @@ struct FooterCategoryElement: Element {
     let elementType: ElementType = .footercategory
     let name: String = "Footer Category"
     let attachableTo: [ElementType] = [.footer]
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a category in the footer"
     let postInitPythonFunc: String? = nil
     let arguments: [Argument] = [
@@ -1393,7 +1411,7 @@ struct FooterLinkElement: Element {
     let elementType: ElementType = .footerlink
     let name: String = "Footer Link"
     let attachableTo: [ElementType] = [.footercategory]
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a link in the footer"
     let postInitPythonFunc: String? = nil
     let arguments: [Argument] = [
@@ -1446,7 +1464,7 @@ struct SidebarElement: Element {
     let elementType: ElementType = .sidebar
     let name: String = "Sidebar"
     let attachableTo: [ElementType] = []
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a sidebar"
     let postInitPythonFunc: String? = nil
     let arguments: [Argument] = [
@@ -1494,7 +1512,7 @@ struct SidebarCategoryElement: Element {
     let elementType: ElementType = .sidebarcategory
     let name: String = "Sidebar Category"
     let attachableTo: [ElementType] = [.sidebar]
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a category in the sidebar"
     let arguments: [Argument] = [
         Argument(name: "title", type: .string, description: "Title of the category"),
@@ -1523,7 +1541,7 @@ struct SidebarLinkElement: Element {
     let elementType: ElementType = .sidebarlink
     let name: String = "Sidebar Link"
     let attachableTo: [ElementType] = [.sidebarcategory]
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .advancedLayout
     let description: String = "Renders a link in the sidebar"
     let arguments: [Argument] = [
         Argument(name: "title", type: .string, description: "Title of the link"),
@@ -1717,7 +1735,7 @@ struct SelectOptionElement: Element {
     let elementType: ElementType = .selectoption
     let name: String = "Select Option"
     let attachableTo: [ElementType] = [.formselect]
-    let category: DocumentationCategory = .internal
+    let category: DocumentationCategory = .form
     let description: String = "Renders a select option"
     let arguments: [Argument] = [
         Argument(name: "label", type: .string, description: "Label for the select option"),

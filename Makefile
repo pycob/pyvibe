@@ -27,8 +27,12 @@ $(VENV)/bin/activate: src/pyvibe/__init.py___
 	./$(VENV)/bin/pip install --upgrade pip
 	./$(VENV)/bin/pip install .
 
+screenshot:
+	./$(VENV)/bin/pip install selenium
+	sudo ./$(VENV)/bin/python3 generator/screenshot.py
+
 clean:
 	rm -rf $(VENV)
 	find . -type f -name '*.pyc' -delete
 
-.PHONY: all clean flask
+.PHONY: all clean flask screenshot

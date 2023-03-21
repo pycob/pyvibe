@@ -31,7 +31,7 @@ page.add_text("PyVibe is a Python library that simplifies UI development for web
 page.add_text("Fundamentally, PyVibe returns an HTML string that can be used with:")
 
 with page.add_list() as list:
-    list.add_listitem("<b><a href='https://github.com/pycob/pyvibe/blob/main/generator/docs/index.py'>Static Pages</a></b>: Like the one you're viewing now", is_checked=True)
+    list.add_listitem("<b><a href='https://github.com/pycob/pyvibe/blob/main/generator/docs/about.py'>Static Pages</a></b>: Like the one you're viewing now", is_checked=True)
     list.add_listitem("<b><a href='flask.html'>Flask</a></b>: Inside a Flask function", is_checked=True)
     list.add_listitem("<b><a href='https://github.com/pycob/pyvibe/blob/main/generator/docs/playground.py#L124-L151'>Pyodide</a></b>: For dynamic client-side rendered pages", is_checked=True)
 

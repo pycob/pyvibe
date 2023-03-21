@@ -4,7 +4,7 @@ version = "0.0.3"
 authors = [
   { name="Zain Hoda", email="zain@pycob.com" },
 ]
-description = "Python UI for Web Apps"
+description = "Easily create styled web pages with Python"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [

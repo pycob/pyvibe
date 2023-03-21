@@ -19,6 +19,7 @@ def take_screenshot(name: str):
         options = Options()
         # options.add_argument("--headless")
         options.add_argument("window-size=1024,768")
+        options.add_argument("--hide-scrollbars")
         # Here Chrome will be used
         driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=options)
 

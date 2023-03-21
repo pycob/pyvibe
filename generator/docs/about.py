@@ -1,5 +1,5 @@
 import pyvibe as pv
-from .common.components import navbar, footer, marketing_banner
+from .common.components import navbar, footer, marketing_banner, gallery_grid, featured_layouts
 
 page = pv.Page("PyVibe", navbar=navbar, footer=footer, image="./img/social.png")
 
@@ -38,7 +38,8 @@ with page.add_list() as list:
 page.add_text("")
 
 page.add_header("What can you build with PyVibe?", 3)
-page.add_text("TODO: Gallery here")
+page.add_component(gallery_grid(featured_layouts))
+page.add_link("See more examples", "/gallery.html")
 
 page.add_header("Designed for Autocomplete", 3)
 page.add_text("PyVibe is designed to be used with autocomplete. This means that you can type <code>page.add_</code> and autocomplete will show you all the components that you can add to your page along with documentation about the component.")

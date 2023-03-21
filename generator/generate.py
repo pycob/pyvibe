@@ -1,7 +1,9 @@
 print("Generating from Python...")
-
+import pyvibe as pv
 from os.path import dirname, basename, isfile, join
 import glob
+from docs.common.components import navbar, footer
+
 modules = glob.glob(join(dirname(__file__)+"/docs", "*.py"))
 files = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
 
@@ -29,5 +31,7 @@ for file in gallery_files:
     exec(f"{file}.page.add_emgithub('https://github.com/pycob/pyvibe/blob/main/generator/gallery/{file}.py')")
     exec(f"{file}.page.add_link('View Source', 'https://github.com/pycob/pyvibe/blob/main/generator/gallery/{file}.py')")
 
+    exec(f'pg = pv.Page({file}.page.title, navbar=navbar, components={file}.page.components)')
+
     print(f"Writing to {file}.html")
-    exec(f"with open('docs/gallery/{file}.html', 'w') as f: f.write({file}.page.to_html())")   
+    exec(f"with open('docs/gallery/{file}.html', 'w') as f: f.write(pg.to_html())")   

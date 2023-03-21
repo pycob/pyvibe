@@ -1,7 +1,7 @@
 # define the name of the virtual environment directory
 VENV := venv
 
-all: venv docs/index.html
+all: venv docs/index.html server
 
 venv: $(VENV)/bin/activate
 
@@ -31,8 +31,12 @@ screenshot:
 	./$(VENV)/bin/pip install selenium
 	sudo ./$(VENV)/bin/python3 generator/screenshot.py
 
+server:
+	open http://localhost:8000
+	./$(VENV)/bin/python -m http.server -d docs
+
 clean:
 	rm -rf $(VENV)
 	find . -type f -name '*.pyc' -delete
 
-.PHONY: all clean flask screenshot
+.PHONY: all clean flask screenshot server

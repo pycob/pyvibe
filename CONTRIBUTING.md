@@ -1,7 +1,7 @@
 # Contributing to PyVibe
 
 ## Architecture
-`generate.swift`, `generate.py`, and `pdoc` are executed. Everything else is either an input or an output
+The [`generator`](generator) directory contains the source assets. Everything else is generated from there.
 
 ```mermaid
 ---
@@ -12,9 +12,10 @@ flowchart TD
     generate.swift --> spec(spec/spec.json)
     generate.swift --> init(src/__init__.py)
     spec --> generate.py[[generator/generate.py]]
-    generate.py --> reference(docs/reference.html)
-    init --> pdoc[[pdoc]]
-    pdoc --> pyvibe.html(docs/pyvibe.html)
+    generate.py --> docs_html(docs/*.html)
+    generate.py --> gallery_html(docs/gallery/*.html)
+    gallery_html --> screenshot.py[[screenshot.py]]
+    screenshot.py --> img(img/*.png)
 ```
 
 Due to the architecture above, pull requests should be submitted only to files in the `/generator` subdirectory since everything else is generated from those files

@@ -19,7 +19,7 @@ with page.add_card() as card:
     card.add_text("PyVibe is an open source Python library for creating UI components for web apps without the need to write HTML code.")
 
 page.add_link("See All Components", "component_reference.html")
-page.add_link("Interactive Tutorial", "tutorial.html")
+page.add_link("Interactive Playground", "playground.html")
 page.add_text("")
 
 page.add_header("What is PyVibe?", 3)

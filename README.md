@@ -20,7 +20,8 @@ PyVibe is a great fit for developers who want to:
 - Use a utility-first CSS framework, such as TailwindCSS, to style their UI components without the need for custom CSS code.
 - Insert any HTML into the page when a pre-built component doesn't fit their needs.
 - Customize the style of their UI components by choosing from a variety of pre-built themes or by contributing new themes that use different CSS frameworks.
-- Getting Started
+
+## Getting Started
 - To get started with PyVibe, simply install the library using pip:
 
 ```bash

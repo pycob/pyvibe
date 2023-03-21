@@ -57,7 +57,7 @@ page.add_html("""
 <div id="marketing-banner" tabindex="-1" class="dark fixed z-50 flex flex-col md:flex-row justify-between w-[calc(100%-2rem)] p-4 -translate-x-1/2 border rounded-lg shadow-sm lg:max-w-7xl left-1/2 bottom-6 bg-gray-700 border-gray-600">
     <div class="flex flex-col items-start mb-3 mr-4 md:items-center md:flex-row md:mb-0">
         <a href="https://pypi.org/project/pyvibe/" class="flex items-center mb-2 border-gray-200 md:pr-4 md:mr-4 md:border-r md:mb-0 dark:border-gray-600">
-            <img src="https://cdn.pycob.com/pycob_hex.svg" class="h-6 mr-2" alt="Pycob Logo">
+            <img src="https://cdn.pycob.com/pyvibe.svg" class="h-6 mr-2" alt="Pycob Logo">
             <span class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">PyVibe</span>
         </a>
         <p class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">Easily create styled web pages with Python</p>

@@ -1653,7 +1653,7 @@ class Navbar(Component):
   
   Instead, use the `Page.add_navbar` method of the parent component.
   """
-  def __init__(self, title: str, logo: str = 'https://cdn.pycob.com/pycob_hex.png', button_label: str = 'Sign In', button_url: str = '/auth/login', button_svg: str = '', components: list = None):    
+  def __init__(self, title: str, logo: str = 'https://cdn.pycob.com/pyvibe.png', button_label: str = 'Sign In', button_url: str = '/auth/login', button_svg: str = '', components: list = None):    
     self.title = title
     self.logo = logo
     self.button_label = button_label
@@ -1687,7 +1687,7 @@ class Navbar(Component):
 <nav class="gradient-background top-0 left-0 z-20 w-full bg-white px-2 py-2.5 dark:border-gray-600 sm:px-4">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
       <a href="/" class="flex items-center">
-        <img src="''' + self.logo + '''" class="mr-3 h-6 sm:h-9" style="filter: brightness(0) invert(1);" alt="Logo" />
+        <img src="''' + self.logo + '''" class="mr-3 h-6 sm:h-9" alt="Logo" />
         <span class="self-center whitespace-nowrap md:text-4xl font-semibold text-white">''' + self.title + '''</span>
       </a>
       <div class="flex md:order-2">
@@ -1791,7 +1791,7 @@ class Page(Component):
   
   Instead, use the `Page.add_page` method of the parent component.
   """
-  def __init__(self, title: str = '', description: str = '', image: str = '', additional_head: str = '', navbar: Navbar = Navbar(title='PyVibe App'), footer: Footer = Footer(), components: list = None):    
+  def __init__(self, title: str = '', description: str = '', image: str = '', additional_head: str = '', navbar: Navbar = Navbar(title='PyVibe App'), footer: Footer = Footer(title='Made with PyVibe', logo='https://cdn.pycob.com/pyvibe.png'), components: list = None):    
     self.title = title
     self.description = description
     self.image = image

@@ -31,7 +31,7 @@
       "description" : "Navbar for the page"
     },
     {
-      "defaultValue" : "Footer()",
+      "defaultValue" : "Footer(title='Made with PyVibe', logo='https:\/\/cdn.pycob.com\/pyvibe.png')",
       "name" : "footer",
       "type" : "Footer",
       "description" : "Footer for the page"
@@ -197,7 +197,7 @@
         },
         {
           "argumentName" : "url",
-          "argumentValue" : "https:\/\/www.pycob.com"
+          "argumentValue" : "https:\/\/www.pyvibe.com"
         }
       ]
     }
@@ -318,11 +318,15 @@
       "arguments" : [
         {
           "argumentName" : "url",
-          "argumentValue" : "https:\/\/cdn.pycob.com\/pycob_with_text_256.png"
+          "argumentValue" : "https:\/\/cdn.pycob.com\/pyvibe.png"
         },
         {
           "argumentName" : "alt",
-          "argumentValue" : "Pycob logo"
+          "argumentValue" : "PyVibe logo"
+        },
+        {
+          "argumentName" : "classes",
+          "argumentValue" : "w-12"
         }
       ]
     }
@@ -1365,7 +1369,7 @@
       "description" : "Title of the navbar"
     },
     {
-      "defaultValue" : "https:\/\/cdn.pycob.com\/pycob_hex.png",
+      "defaultValue" : "https:\/\/cdn.pycob.com\/pyvibe.png",
       "name" : "logo",
       "type" : "Optional String",
       "description" : "URL for the logo of the navbar"

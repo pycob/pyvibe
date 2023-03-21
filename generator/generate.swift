@@ -543,7 +543,7 @@ struct PageElement: Element {
         Argument(name: "image", type: .optionalString, description: "The SEO image of the page", defaultValue: ""),
         Argument(name: "additional_head", type: .optionalString, description: "Additional HTML to be added to the head of the page", defaultValue: ""),
         Argument(name: "navbar", type: .navbar, description: "Navbar for the page", defaultValue: "Navbar(title='PyVibe App')"),
-        Argument(name: "footer", type: .footer, description: "Footer for the page", defaultValue: "Footer()"),
+        Argument(name: "footer", type: .footer, description: "Footer for the page", defaultValue: "Footer(title='Made with PyVibe', logo='https://cdn.pycob.com/pyvibe.png')"),
         Argument(name: "components", type: .elements, description: "The components to be rendered on the page"),
     ]
     let postInitPythonFunc: String? = nil
@@ -735,7 +735,7 @@ struct PlainLinkElement: Element {
     let exampleCode: [ExampleCode] = [
         ExampleCode(setup: nil, arguments: [ 
             ExampleArgument(argumentName: "text", argumentValue: .string("Here's a link")),
-            ExampleArgument(argumentName: "url", argumentValue: .string("https://www.pycob.com"))
+            ExampleArgument(argumentName: "url", argumentValue: .string("https://www.pyvibe.com"))
         ])
     ]
 
@@ -868,8 +868,9 @@ struct ImageElement: Element {
     let postInitPythonFunc: String? = nil
     let exampleCode: [ExampleCode] = [
         ExampleCode(setup: nil, arguments: [ 
-            ExampleArgument(argumentName: "url", argumentValue: .string("https://cdn.pycob.com/pycob_with_text_256.png")),
-            ExampleArgument(argumentName: "alt", argumentValue: .string("Pycob logo"))
+            ExampleArgument(argumentName: "url", argumentValue: .string("https://cdn.pycob.com/pyvibe.png")),            
+            ExampleArgument(argumentName: "alt", argumentValue: .string("PyVibe logo")),
+            ExampleArgument(argumentName: "classes", argumentValue: .string("w-12"))
         ])
     ]
 
@@ -1238,7 +1239,7 @@ struct NavbarElement: Element {
     """
     let arguments: [Argument] = [
         Argument(name: "title", type: .string, description: "Title of the navbar"),        
-        Argument(name: "logo", type: .optionalString, description: "URL for the logo of the navbar", defaultValue: "https://cdn.pycob.com/pycob_hex.png"),
+        Argument(name: "logo", type: .optionalString, description: "URL for the logo of the navbar", defaultValue: "https://cdn.pycob.com/pyvibe.png"),
         Argument(name: "button_label", type: .optionalString, description: "Label for the button", defaultValue: "Sign In"),
         Argument(name: "button_url", type: .optionalString, description: "URL for the button", defaultValue: "/auth/login"),
         Argument(name: "button_svg", type: .optionalString, description: "SVG for the button", defaultValue: ""),
@@ -1270,7 +1271,7 @@ struct NavbarElement: Element {
 <nav class="gradient-background top-0 left-0 z-20 w-full bg-white px-2 py-2.5 dark:border-gray-600 sm:px-4">
     <div class="container mx-auto flex flex-wrap items-center justify-between">
       <a href="/" class="flex items-center">
-        <img src="\(logo)" class="mr-3 h-6 sm:h-9" style="filter: brightness(0) invert(1);" alt="Logo" />
+        <img src="\(logo)" class="mr-3 h-6 sm:h-9" alt="Logo" />
         <span class="self-center whitespace-nowrap md:text-4xl font-semibold text-white">\(title)</span>
       </a>
       <div class="flex md:order-2">

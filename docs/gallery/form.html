@@ -11,8 +11,8 @@
     <meta name="msapplication-config" content="https://cdn.pycob.com/pyvibe/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <meta property="og:title" content="Gallery">
+    <title>Form Example</title>
+    <meta property="og:title" content="Form Example">
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     
@@ -141,80 +141,53 @@
         <div class="flex">
             
             <div id="page-container" class="container px-5 my-5 mx-auto">
-                <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Gallery</p>
-<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Here are some examples of what you can create with PyVibe.</p>
-<div class="  grid gap-6 md:grid-cols-4">
-    <div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
+                <div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
     <div class="flex flex-col h-full ">
-        <img class="max-w-fit h-auto rounded-lg w-full shadow-lg " src="./img/grid.png" alt="grid">
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white mt-1 text-lg sm:text-3xl ">Grid</p>
+        <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Form Example</p>
+<form class="max-w-full" style="width: 500px" onsubmit="setLoading(this)" action="?" method="GET">
+    <div class="mb-6">
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+    <input type="text" name="name" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your name" required>
+</div>
+<div class="mb-6">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+    <input type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email" required>
+</div>
+<div class="mb-6">
+    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+    <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your password" required>
+</div>
+<div class="mb-6">
+    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
+    <textarea name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your message"></textarea>
+</div>
+<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send</button> 
+</form> 
+    </div>
+</div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Python Source</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">This is the source code for the current page.</p>
+
+    <script src="https://emgithub.com/embed-v2.js?target=https%3A//github.com/pycob/pyvibe/blob/main/generator/gallery/form.py&style=vs2015&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on&fetchFromJsDelivr=on"></script>
+    
 <p class="text-gray-500 dark:text-gray-400 ">
-    <a href="/gallery/grid.html" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    Preview with Source Code
+    <a href="https://github.com/pycob/pyvibe/blob/main/generator/gallery/form.py" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    View Source
     <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
     </a>
 </p> 
-    </div>
-</div>
-<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
-    <div class="flex flex-col h-full ">
-        <img class="max-w-fit h-auto rounded-lg w-full shadow-lg " src="./img/chart.png" alt="chart">
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white mt-1 text-lg sm:text-3xl ">Chart</p>
-<p class="text-gray-500 dark:text-gray-400 ">
-    <a href="/gallery/chart.html" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    Preview with Source Code
-    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
-</p> 
-    </div>
-</div>
-<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
-    <div class="flex flex-col h-full ">
-        <img class="max-w-fit h-auto rounded-lg w-full shadow-lg " src="./img/card.png" alt="card">
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white mt-1 text-lg sm:text-3xl ">Card</p>
-<p class="text-gray-500 dark:text-gray-400 ">
-    <a href="/gallery/card.html" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    Preview with Source Code
-    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
-</p> 
-    </div>
-</div>
-<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
-    <div class="flex flex-col h-full ">
-        <img class="max-w-fit h-auto rounded-lg w-full shadow-lg " src="./img/form.png" alt="form">
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white mt-1 text-lg sm:text-3xl ">Form</p>
-<p class="text-gray-500 dark:text-gray-400 ">
-    <a href="/gallery/form.html" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    Preview with Source Code
-    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
-</p> 
-    </div>
-</div>
-<div class="block p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 overflow-x-auto max-w-fit mx-auto ">
-    <div class="flex flex-col h-full ">
-        <img class="max-w-fit h-auto rounded-lg w-full shadow-lg " src="./img/table.png" alt="table">
-<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white mt-1 text-lg sm:text-3xl ">Table</p>
-<p class="text-gray-500 dark:text-gray-400 ">
-    <a href="/gallery/table.html" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    Preview with Source Code
-    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
-</p> 
-    </div>
-</div> 
-</div>
-<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">PyVibe was spun out of Pycob. We are in the process of transitioning Pycob apps to PyVibe.</p>
-<p class="text-gray-500 dark:text-gray-400 ">
-    <a href="https://www.pycob.com/gallery?tag=Featured" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-    See additional examples on Pycob
-    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-    </a>
-</p>
-<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Note: Some of the examples on Pycob are not yet compatible with PyVibe but should give you some examples of the layout possibilities.</p> 
             </div>
         </div>
-        
+        <footer class="text-gray-600 body-font">
+    <div class="container px-5 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+        <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 dark:text-white"><img class="object-scale-down h-10" src="https://cdn.pycob.com/pyvibe.png"><span class="ml-3 text-xl">Made with PyVibe</span></a>
+            <p class="mt-2 text-sm text-gray-500"></p>
+        </div>
+        <div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
+             
+        </div>
+    </div>
+</footer>
     </body>
 </html>

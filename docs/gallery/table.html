@@ -1,0 +1,171 @@
+<!doctype html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.pycob.com/pyvibe/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.pycob.com/pyvibe/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.pycob.com/pyvibe/favicon-16x16.png">
+    <link rel="mask-icon" href="https://cdn.pycob.com/pyvibe/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://cdn.pycob.com/pyvibe/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="https://cdn.pycob.com/pyvibe/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <meta property="og:title" content="Table Example">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.18.2.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <script>
+    function toggleDarkMode() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark')
+            document.getElementById("moon").classList.add("hidden")
+            document.getElementById("sun").classList.remove("hidden")
+        } else {
+            document.documentElement.classList.add('dark')
+            document.getElementById("sun").classList.add("hidden")
+            document.getElementById("moon").classList.remove("hidden")
+        }
+    }
+
+    function setLoading(el) {
+        el.querySelectorAll("button[type=submit]").forEach((button) => {
+            button.innerHTML = '<svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"/></svg>Loading...';
+            button.disabled = true;
+        });
+    }
+
+    function toggleMore(button) {
+        x = button
+
+        if (x.innerHTML === "more") {
+            x.innerHTML = "less";
+            text_full = x.getAttribute("data-text-full")
+            text_truncated = x.getAttribute("data-text-truncated")
+
+            x.parentElement.innerHTML = text_full + ' <button data-text-full="' + text_full + '" data-text-truncated="' + text_truncated + '" onclick="toggleMore(this)" class="text-blue-500">less</button>'
+        } else {
+            x.innerHTML = "more";
+            text_full = x.getAttribute("data-text-full")
+            text_truncated = x.getAttribute("data-text-truncated")
+
+            x.parentElement.innerHTML = text_truncated + ' <button data-text-full="' + text_full + '" data-text-truncated="' + text_truncated + '" onclick="toggleMore(this)" class="text-blue-500">more</button>'
+        }
+    }
+    </script>
+    <style>
+    .gradient-background {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 180s ease infinite;
+    }
+
+    .gradient-text {
+        color: transparent;
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-clip: text;
+        -webkit-background-clip: text;
+        animation: gradient 2s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    </style>
+    </head>
+    <body class="flex flex-col h-screen dark:bg-gray-900 ">
+        <script>
+    function toggleNav() {
+        var nav = document.getElementById("navbar-sticky");
+        if (nav.classList.contains("hidden")) {
+            nav.classList.remove("hidden");
+        } else {
+            nav.classList.add("hidden");
+        }
+    }
+</script>
+<nav class="gradient-background top-0 left-0 z-20 w-full bg-white px-2 py-2.5 dark:border-gray-600 sm:px-4">
+    <div class="container mx-auto flex flex-wrap items-center justify-between">
+      <a href="/" class="flex items-center">
+        <img src="https://cdn.pycob.com/pyvibe.png" class="mr-3 h-6 sm:h-9" alt="Logo" />
+        <span class="self-center whitespace-nowrap md:text-4xl font-semibold text-white">PyVibe</span>
+      </a>
+      <div class="flex md:order-2">
+        <button onclick="toggleDarkMode()" type="button" class="mx-3 px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500">
+            <svg id="sun" data-toggle-icon="sun" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+            <svg id="moon" data-toggle-icon="moon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>        </button>
+        <a type="button" href="login.html" id="pycob-login-button" class="mr-3 inline-flex items-center rounded-lg bg-blue-700 px-2 py-1 text-center text-xs font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0">
+          Sign In
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" class="ml-1 h-4 w-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg>
+        </a>
+        <button onclick="toggleNav()" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center rounded-lg p-2 text-sm text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden" aria-controls="navbar-sticky" aria-expanded="true">
+          <span class="sr-only">Open main menu</span>
+          <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+        </button>
+      </div>
+      <div class="w-full items-center justify-between md:order-1 md:flex md:w-auto hidden" id="navbar-sticky">
+        <ul class="mt-4 flex flex-col rounded-lg md:mt-0 md:flex-row md:space-x-8 md:border-0 md:text-sm md:font-medium">
+          <a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 " href="/gallery.html">Gallery</a>
+<a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 " href="/flask.html">Flask</a>
+<a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 " href="/playground.html">Playground</a>
+<a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 " href="/component_reference.html">Components</a>
+<a class="block rounded-lg py-2 pl-3 pr-4 text-white hover:bg-blue-800 md:p-2 inline-flex items-center" href="https://github.com/pycob/pyvibe"><svg class="w-4 h-4 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> GitHub</a> 
+        </ul>
+      </div>
+    </div>
+  </nav>
+        <div class="flex">
+            
+            <div id="page-container" class="container px-5 my-5 mx-auto">
+                <p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Table Example</p>
+<div class="p-8"><div class="relative overflow-x-auto shadow-md sm:rounded-lg"><table class="w-full text-sm text-left text-gray-500 dark:text-gray-400"><thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"><tr><th scope="col" class="px-6 py-3">Actions</th><th scope="col" class="px-6 py-3">country</th><th scope="col" class="px-6 py-3">continent</th><th scope="col" class="px-6 py-3">year</th><th scope="col" class="px-6 py-3">lifeExp</th><th scope="col" class="px-6 py-3">pop</th><th scope="col" class="px-6 py-3">gdpPercap</th><th scope="col" class="px-6 py-3">iso_alpha</th><th scope="col" class="px-6 py-3">iso_num</th></tr></thead><tbody><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1952' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,952</td><td class="px-6 py-4">68.8</td><td class="px-6 py-4">14.8 million</td><td class="px-6 py-4">11,367</td><td class="px-6 py-4"><a href='#/country?year=1952&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1957' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,957</td><td class="px-6 py-4">70.0</td><td class="px-6 py-4">17.0 million</td><td class="px-6 py-4">12,490</td><td class="px-6 py-4"><a href='#/country?year=1957&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1962' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,962</td><td class="px-6 py-4">71.3</td><td class="px-6 py-4">19.0 million</td><td class="px-6 py-4">13,462</td><td class="px-6 py-4"><a href='#/country?year=1962&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1967' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,967</td><td class="px-6 py-4">72.1</td><td class="px-6 py-4">20.8 million</td><td class="px-6 py-4">16,077</td><td class="px-6 py-4"><a href='#/country?year=1967&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1972' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,972</td><td class="px-6 py-4">72.9</td><td class="px-6 py-4">22.3 million</td><td class="px-6 py-4">18,971</td><td class="px-6 py-4"><a href='#/country?year=1972&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1977' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,977</td><td class="px-6 py-4">74.2</td><td class="px-6 py-4">23.8 million</td><td class="px-6 py-4">22,091</td><td class="px-6 py-4"><a href='#/country?year=1977&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1982' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,982</td><td class="px-6 py-4">75.8</td><td class="px-6 py-4">25.2 million</td><td class="px-6 py-4">22,899</td><td class="px-6 py-4"><a href='#/country?year=1982&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1987' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,987</td><td class="px-6 py-4">76.9</td><td class="px-6 py-4">26.5 million</td><td class="px-6 py-4">26,627</td><td class="px-6 py-4"><a href='#/country?year=1987&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1992' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,992</td><td class="px-6 py-4">78.0</td><td class="px-6 py-4">28.5 million</td><td class="px-6 py-4">26,343</td><td class="px-6 py-4"><a href='#/country?year=1992&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=1997' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">1,997</td><td class="px-6 py-4">78.6</td><td class="px-6 py-4">30.3 million</td><td class="px-6 py-4">28,955</td><td class="px-6 py-4"><a href='#/country?year=1997&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=2002' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">2,002</td><td class="px-6 py-4">79.8</td><td class="px-6 py-4">31.9 million</td><td class="px-6 py-4">33,329</td><td class="px-6 py-4"><a href='#/country?year=2002&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr><tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4"><a href='#/edit?year=2007' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap mr-1">Edit</button></td><td class="px-6 py-4">Canada</td><td class="px-6 py-4">Americas</td><td class="px-6 py-4">2,007</td><td class="px-6 py-4">80.7</td><td class="px-6 py-4">33.4 million</td><td class="px-6 py-4">36,319</td><td class="px-6 py-4"><a href='#/country?year=2007&country=Canada' class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 whitespace-nowrap">CAN</button></td><td class="px-6 py-4">124</td></tr></tbody></table></div></div>
+<p class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 dark:text-white  text-xl sm:text-5xl ">Python Source</p>
+<p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">This is the source code for the current page.</p>
+
+    <script src="https://emgithub.com/embed-v2.js?target=https%3A//github.com/pycob/pyvibe/blob/main/generator/gallery/table.py&style=vs2015&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on&fetchFromJsDelivr=on"></script>
+    
+<p class="text-gray-500 dark:text-gray-400 ">
+    <a href="https://github.com/pycob/pyvibe/blob/main/generator/gallery/table.py" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    View Source
+    <svg aria-hidden="true" class="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</p> 
+            </div>
+        </div>
+        <footer class="text-gray-600 body-font">
+    <div class="container px-5 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+        <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 dark:text-white"><img class="object-scale-down h-10" src="https://cdn.pycob.com/pyvibe.png"><span class="ml-3 text-xl">Made with PyVibe</span></a>
+            <p class="mt-2 text-sm text-gray-500"></p>
+        </div>
+        <div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
+             
+        </div>
+    </div>
+</footer>
+    </body>
+</html>

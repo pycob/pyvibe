@@ -11,6 +11,7 @@ flask:
 
 docs/index.html: src/pyvibe/__init.py___ generator/generate.py
 	./$(VENV)/bin/pip install pandas
+	./$(VENV)/bin/pip install plotly
 	./$(VENV)/bin/python3 generator/generate.py
 
 # pdoc: src/pyvibe/__init.py___

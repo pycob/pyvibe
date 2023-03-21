@@ -73,7 +73,10 @@ def gallery_grid(names: list[str]) -> pv.Component:
     return grid
 
 featured_layouts = [
-    "index",
+    "card",
+    "form",
+    "chart",
+    "table",
 ]
 
 import os

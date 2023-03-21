@@ -1,5 +1,5 @@
 import pyvibe as pv
-from .common.components import navbar, footer
+from .common.components import navbar, footer, marketing_banner
 
 page = pv.Page("Flask", navbar=navbar, footer=footer)
 
@@ -28,3 +28,4 @@ if __name__ == '__main__':
 page.add_text("Then, run the following command in your terminal:")
 page.add_code("python app.py", prefix="%")
 
+page.add_html(marketing_banner)

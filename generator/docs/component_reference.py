@@ -2,7 +2,7 @@ import pyvibe as pv
 import os
 import json
 import pandas as pd
-from .common.components import navbar, footer
+from .common.components import navbar, footer, marketing_banner
 
 def argument_value_with_quotes(argument_type, argument_value) -> str:
     if argument_value is None:
@@ -167,3 +167,4 @@ for category in category_order:
 
         page.add_divider()
 
+page.add_html(marketing_banner)

@@ -48,7 +48,7 @@
       "description" : "The components to be rendered on the page. You don't normally need to specify this since you can use page.add_ methods"
     }
   ],
-  "postInitPythonFunc" : "if self.sidebar is None:\n    self.sidebar = HtmlComponent('')",
+  "postInitPythonFunc" : "if self.sidebar is None:\n    self.sidebar = HtmlComponent('')\nif self.navbar is None:\n    self.navbar = HtmlComponent('')\nif self.footer is None:\n    self.footer = HtmlComponent('')",
   "elementType" : "page",
   "attachableTo" : [
 

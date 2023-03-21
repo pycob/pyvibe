@@ -1751,6 +1751,10 @@ class Page(Component):
     self.components = components or []
     if self.sidebar is None:
         self.sidebar = HtmlComponent('')
+    if self.navbar is None:
+        self.navbar = HtmlComponent('')
+    if self.footer is None:
+        self.footer = HtmlComponent('')
 
   def __enter__(self):
     return self

@@ -42,6 +42,10 @@ page.add_text("")
 page.add_header("What can you build with PyVibe?", 3)
 page.add_text("TODO: Gallery here")
 
+page.add_header("Designed for Autocomplete", 3)
+page.add_text("PyVibe is designed to be used with autocomplete. This means that you can type <code>page.add_</code> and autocomplete will show you all the components that you can add to your page along with documentation about the component.")
+page.add_image("./img/autocomplete.png", "Autocomplete")
+
 page.add_header("Themes", 3)
 page.add_text('PyVibe is meant to be a generic framework. While the default theme uses <a href="https://flowbite.com/" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Flowbite</a>, which are components that use <a href="https://tailwindcss.com/" class="font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">TailwindCSS</a>, we envision including many themes and CSS frameworks in the future.')
 

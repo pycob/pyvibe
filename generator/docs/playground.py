@@ -12,11 +12,16 @@ page.add_html("""
 <script>
 code_samples = {
     "Card": `
+import pyvibe as pv
+
+page = pv.Page('Test Page')
+
 with page.add_card() as card:
     card.add_header("Hello World")
     card.add_text("This content was generated with Python (from the browser)!")
 `,
     "Charts": `
+import pyvibe as pv    
 import plotly.express as px
 import pandas as pd
 
@@ -26,9 +31,11 @@ df = pd.DataFrame({
 })
 fig = px.line(df, x="First Column", y="Second Column", title='Sample Chart')
 
+page = pv.Page('Test Page')
 page.add_plotlyfigure(fig)
 `,
     "Tables": `
+import pyvibe as pv
 import pandas as pd
 
 df = pd.DataFrame({
@@ -36,9 +43,14 @@ df = pd.DataFrame({
     'Second Column': [10, 20, 30, 40]
 })
 
+page = pv.Page('Test Page')
 page.add_pandastable(df)
 `,
     "Forms": `
+import pyvibe as pv
+
+page = pv.Page('Test Page')
+
 with page.add_card() as card:
     card.add_header("This is a form")
     with card.add_form() as form:
@@ -80,9 +92,14 @@ function setTab(el) {
 
 """)
 
-page.add_codeeditor("""with page.add_card() as card:
+page.add_codeeditor("""import pyvibe as pv
+
+page = pv.Page('Test Page')
+
+with page.add_card() as card:
     card.add_header("Hello World")
     card.add_text("This content was generated with Python (from the browser)!")
+
 """)
 
 page.add_html("""
@@ -111,8 +128,6 @@ page.add_html("""
         await micropip.install("pyvibe");
         await micropip.install("plotly");
         await micropip.install("pandas");
-
-        pyodide.runPython(`import pagebuilder as pv`);
         
         document.getElementById("runButton").innerHTML = runButton;
       }
@@ -120,9 +135,9 @@ page.add_html("""
 
       function runCode() {
         document.getElementById("runButton").innerHTML = loadingButton;
-        pyodide.runPython(`page = pv.ContainerComponent()`);
         pyodide.runPython(editor.getValue());
 
+        pyodide.runPython(`page = pv.ContainerComponent(components=page.components)`);
         pyodide.runPython(`results = page.to_html()`);
 
         results = pyodide.globals.get("results");

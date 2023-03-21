@@ -1,7 +1,7 @@
 import pyvibe as pv
 from .common.components import footer, marketing_banner
 
-page = pv.Page("Hero", navbar=None, footer=footer, image="./img/social.png")
+page = pv.Page("PyVibe: Easily create styled web pages with Python", navbar=None, footer=footer, image="./img/social.png")
 
 container_outer = page.add_container(grid_columns=2)
 

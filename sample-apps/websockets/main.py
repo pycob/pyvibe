@@ -13,11 +13,18 @@ class WebSocketReceiverComponent(pv.Component):
         return """
         <div id="log"></div>
         <script>
+            var httpProtocol = 'http://'; 
+            var wsProtocol = 'ws://';
+            if (window.location.protocol === 'https:') {
+                httpProtocol = 'http://';
+                wsProtocol = 'wss://';
+            }
+
             const log = (text, color) => {
                 document.getElementById('log').innerHTML += `<span style="color: ${color}">${text}</span><br>`;
             };
 
-            const socket = new WebSocket('ws://' + location.host + '""" + self.path_to_websocket + """');
+            const socket = new WebSocket(wsProtocol + location.host + '""" + self.path_to_websocket + """');
             socket.addEventListener('message', ev => {
                 document.getElementById('log').innerHTML += ev.data;
             });
@@ -49,7 +56,7 @@ class WebSocketSenderComponent(pv.Component):
 
 @app.route('/')
 def index():
-    page = pv.Page('Websocket Test')
+    page = pv.Page('Websocket Test', description='WebSocket proof of concept using Flask-Sock and PyVibe')
 
     page.add_header("Websocket Test")
 
@@ -62,7 +69,8 @@ def index():
             card.add_header('Receive')
             card.add_component(WebSocketReceiverComponent('/echo'))
 
-    page.add_emgithub("https://github.com/pycob/pyvibe/blob/weboscket/sample-apps/websockets/main.py")
+    page.add_header("Source Code")
+    page.add_emgithub("https://github.com/pycob/pyvibe/blob/main/sample-apps/websockets/main.py")
 
     return page.to_html()
 

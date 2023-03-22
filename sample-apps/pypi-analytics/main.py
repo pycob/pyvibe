@@ -14,7 +14,7 @@ def home() -> str:
     page = pv.Page("PyPi Analytics")
     page.add_header("PyPi Analytics")
     page.add_text("PyPi analytics enables Python engineers to identify usage trends with Python packages as an input for picking the right package")
-    page.add_link("See the source code for this app", "https://github.com/pycob/sample-apps/blob/main/pypi-analytics/main.py")
+    page.add_link("See the source code for this app", "/view_source")
     page.add_text("")
     
     top_projects = pypi_projects_by_month.groupby('pypi_project').sum().sort_values('avg_downloads_per_day', ascending=False).reset_index().head(50)
@@ -77,7 +77,21 @@ def project_detail() -> str:
                 form.add_formsubmit("Analyze")
 
     return page.to_html()
-    
+
+@app.route('/view_source')
+def view_source() -> str:
+    page = pv.Page("View Source")
+    page.add_header("View Source")
+
+    # Read the source code
+    with open(__file__, 'r') as f:
+        source = f.read()
+
+    # Add the source code to the page
+    page.add_codeeditor(source, language="python")
+
+    return page.to_html()
+
 # RUN APP
 if __name__ == '__main__':
     app.run(debug=True)

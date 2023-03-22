@@ -128,3 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .DS_Store
+**/pycob_api_key.txt
+**/venv
+**/tmp

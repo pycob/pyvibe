@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 .DS_Store
 **/*api_key*
+**/venv
+**/tmp

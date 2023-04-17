@@ -1,6 +1,6 @@
 import pyvibe as pv
 
-navbar = pv.Navbar("PyVibe", button_url="login.html")
+navbar = pv.Navbar("PyVibe")
 navbar.add_navbarlink("Gallery", "/gallery.html")
 navbar.add_navbarlink("Flask", "/flask.html")
 navbar.add_navbarlink("Playground", "/playground.html")

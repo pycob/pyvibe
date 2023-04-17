@@ -31,7 +31,7 @@
       "description" : "Navbar for the page"
     },
     {
-      "defaultValue" : "Footer(title='Made with PyVibe', logo='https:\/\/cdn.pycob.com\/pyvibe.png')",
+      "defaultValue" : "Footer(title='Made with PyVibe', logo='https:\/\/cdn.pycob.com\/pyvibe.png', link='https:\/\/www.pyvibe.com')",
       "name" : "footer",
       "type" : "Footer",
       "description" : "Footer for the page"
@@ -1382,30 +1382,11 @@
       "description" : "URL for the logo of the navbar"
     },
     {
-      "defaultValue" : "Sign In",
-      "name" : "button_label",
-      "type" : "Optional String",
-      "description" : "Label for the button"
-    },
-    {
-      "defaultValue" : "\/auth\/login",
-      "name" : "button_url",
-      "type" : "Optional String",
-      "description" : "URL for the button"
-    },
-    {
-      "defaultValue" : "",
-      "name" : "button_svg",
-      "type" : "Optional String",
-      "description" : "SVG for the button"
-    },
-    {
       "name" : "components",
       "type" : "Components",
       "description" : "List of links for the navbar"
     }
   ],
-  "postInitPythonFunc" : "if button_label == \"Sign In\" and button_svg == \"\":\n    self.button_svg = '<svg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" class=\"ml-1 h-4 w-4\" viewBox=\"0 0 24 24\"><path d=\"M5 12h14M12 5l7 7-7 7\"><\/path><\/svg>'\n\nif button_svg == \"\":\n    self.button_svg = '<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" class=\"ml-1 h-4 w-4\" viewBox=\"0 0 24 24\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" aria-hidden=\"true\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z\"><\/path><\/svg>'",
   "elementType" : "navbar",
   "attachableTo" : [
 
@@ -1466,6 +1447,12 @@
       "name" : "logo",
       "type" : "Optional String",
       "description" : "URL for the logo of the footer"
+    },
+    {
+      "defaultValue" : "",
+      "name" : "link",
+      "type" : "Optional String",
+      "description" : "URL for the link of the footer"
     },
     {
       "name" : "components",

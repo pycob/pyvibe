@@ -1100,7 +1100,7 @@ struct CodeElement: Element {
                 <span class="h-3 w-3 rounded-full bg-green-400"></span>
                 <code class="pl-5 text-lime-500">\(header)</code>
             </div>
-            <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-scroll p-2">
+            <div class="w-full border-t-0 bg-gray-700 pb-5 rounded-b-lg whitespace-nowrap overflow-x-auto p-2">
                 <code class="text-gray-500">\(prefixText)</code>
                 <code class="text-white" style="white-space: break-spaces">\(value)</code>
             </div>
